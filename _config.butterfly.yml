@@ -1037,9 +1037,9 @@ css_prefix: true
 inject:
   head:
     # - <link rel="stylesheet" href="/xxx.css">
-  bottom:
-    # - <script src="xxxx"></script>
-
+  bottom: 
+      - <script async src="/js/title.js"></script>
+      - <script src="https://fastly.jsdelivr.net/npm/live2d-widgets@0/autoload.js"></script>
 # CDN Settings
 # Don't modify the following settings unless you know how they work
 CDN:
@@ -1113,3 +1113,4 @@ CDN:
     # valine:
     # waline_css:
     # waline_js:
+##魔改教程
