@@ -1062,6 +1062,9 @@ inject:
       - <script defer type="text/javascript" src="https://cdn1.tianli0.top/npm/sweetalert2@8.19.0/dist/sweetalert2.all.js"></script> # 节日弹窗依赖
       - <script defer src="/js/lunar.js"></script> # 农历计算
       - <script defer src="/js/day.js"></script> # 节日弹窗
+      - <script src="https://cdn.staticfile.org/jquery/3.6.3/jquery.min.js"></script> # jQuery
+      - <script async data-pjax src="/js/txmap.js"></script> # 腾讯位置API
+      - <script async src="https://npm.elemecdn.com/tzy-blog/lib/js/other/sakura.js"></script>#樱花效果
 
 
 
