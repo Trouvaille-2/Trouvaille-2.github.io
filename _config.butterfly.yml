@@ -21,7 +21,7 @@ menu:  ##菜单
   归档: /archives/ || fas fa-archive
   标签: /tags/ || fas fa-tags
   分类: /categories/ || fas fa-folder-open
-  列表||fas fa-list:
+  列表||fas fa-list || hide:
     音乐: /music/ || fas fa-music
     电影: /movies/ || fas fa-video
   友链: /link / || fas fa-link
@@ -858,8 +858,8 @@ canvas_ribbon:
 
 # Fluttering Ribbon
 canvas_fluttering_ribbon:
-  enable: true
-  mobile: true
+  enable: false
+  mobile: false
 
 # canvas_nest
 # https://github.com/hustcc/canvas-nest.js
@@ -1046,9 +1046,25 @@ inject:
   head:
     # - <link rel="stylesheet" href="/xxx.css">
       - <link rel="stylesheet" href="/css/custom.css" media="defer" onload="this.media='all'">
+      - <link rel="stylesheet" href="/css/universe.css">
+      - <link rel="stylesheet" href="/css/custom.css">
+      - <link rel="stylesheet" href="/css/custom.css">
+      - <link rel="stylesheet" href="/css/readPercent.css">
   bottom: 
       - <script async src="/js/title.js"></script>
       - <script src="https://fastly.jsdelivr.net/npm/live2d-widgets@0/autoload.js"></script>
+      - <canvas id="universe"></canvas>
+      - <script defer src="/js/universe.js"></script>
+      - <script defer src="/js/cursor.js"></script>
+      - <script defer src="https://npm.elemecdn.com/jquery@latest/dist/jquery.min.js"></script>
+      - <script defer data-pjax src="/js/cat.js"></script>
+      - <script defer data-pjax src="/js/readPercent.js"></script>
+      - <script defer type="text/javascript" src="https://cdn1.tianli0.top/npm/sweetalert2@8.19.0/dist/sweetalert2.all.js"></script> # 节日弹窗依赖
+      - <script defer src="/js/lunar.js"></script> # 农历计算
+      - <script defer src="/js/day.js"></script> # 节日弹窗
+
+
+
 # CDN Settings
 # Don't modify the following settings unless you know how they work
 CDN:
@@ -1123,3 +1139,41 @@ CDN:
     # waline_css:
     # waline_js:
 ##魔改教程
+# electric_clock (安知鱼电子钟)
+# see https://anzhiy.cn/posts/fc18.html
+electric_clock:
+  enable: true # 开关
+  priority: 5 #过滤器优先权
+  enable_page: / # 应用页面
+  exclude:
+    # - /posts/
+    # - /about/
+  layout: # 挂载容器类型
+    type: class
+    name: sticky_layout
+    index: 0
+  loading: https://cdn.cbd.int/hexo-butterfly-clock-anzhiyu/lib/loading.gif #加载动画自定义
+  clock_css: https://cdn.cbd.int/hexo-butterfly-clock-anzhiyu/lib/clock.min.css
+  clock_js: https://cdn.cbd.int/hexo-butterfly-clock-anzhiyu/lib/clock.min.js
+  ip_api: https://widget.qweather.net/simple/static/js/he-simple-common.js?v=2.0
+  qweather_key:  # 和风天气key
+  gaud_map_key:  # 高得地图web服务key
+  default_rectangle: false # 开启后将一直显示rectangle位置的天气，否则将获取访问者的地理位置与天气
+  rectangle: 113.34532,23.15624 # 获取访问者位置失败时会显示该位置的天气，同时该位置为开启default_rectangle后的位置
+
+
+  # tag-plugins-plus
+# see https://akilar.top/posts/615e2dec/
+tag_plugins:
+  enable: true # 开关
+  priority: 5 #过滤器优先权
+  issues: false #issues标签依赖注入开关
+  link:
+    placeholder: /img/link.png #link_card标签默认的图标图片
+  CDN:
+    anima: https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css #动画标签anima的依赖
+    jquery: https://npm.elemecdn.com/jquery@latest/dist/jquery.min.js #issues标签依赖
+    issues: https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/issues.js #issues标签依赖
+    iconfont: //at.alicdn.com/t/font_2032782_8d5kxvn09md.js #参看https://akilar.top/posts/d2ebecef/
+    carousel: https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js
+    tag_plugins_css: https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css
