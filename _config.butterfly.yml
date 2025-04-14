@@ -304,7 +304,7 @@ aside:
       link: https://github.com/xxxxxx
   card_announcement:
     enable: true
-    content: This is my Blog
+    content: <center><b>我的联系方式<br><b>--- QQ:2015452145 ---<br><b>--- 电话：13247442668 ---<br><b>--- 邮箱 ---<br><b>2015452145@qq.com<br><b>mfh2015452145@gmail.com<br></center>
   card_recent_post:
     enable: true
     # If set 0 will show all
