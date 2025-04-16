@@ -22,7 +22,7 @@ menu:  ##菜单
   标签: /tags/ || fas fa-tags
   分类: /categories/ || fas fa-folder-open
   列表||fas fa-list || hide:
-    音乐: /music/ || fas fa-music
+    音乐: /music/ || fas player
     电影: /movies/ || fas fa-video
   友链: /link / || fas fa-link
   关于: /about/ || fas fa-heart
@@ -983,7 +983,7 @@ pjax:
 
 # Inject the css and script (aplayer/meting)
 aplayerInject:
-  enable: false
+  enable: true
   per_page: true
 
 # Snackbar - Toast Notification
@@ -1050,6 +1050,7 @@ inject:
       - <link rel="stylesheet" href="/css/custom.css">
       - <link rel="stylesheet" href="/css/custom.css">
       - <link rel="stylesheet" href="/css/readPercent.css">
+      
   bottom: 
       - <script async src="/js/title.js"></script>
       - <script src="https://fastly.jsdelivr.net/npm/live2d-widgets@0/autoload.js"></script>
@@ -1065,6 +1066,8 @@ inject:
       - <script src="https://cdn.staticfile.org/jquery/3.6.3/jquery.min.js"></script> # jQuery
       - <script async data-pjax src="/js/txmap.js"></script> # 腾讯位置API
       - <script async src="https://npm.elemecdn.com/tzy-blog/lib/js/other/sakura.js"></script>#樱花效果
+      - <div class="aplayer no-destroy" data-id="9516678957" data-server="tencent" data-type="playlist"
+      data-order="list" data-fixed="true" data-preload="auto" data-autoplay="false" data-mutex="true" ></div>
 
 
 
