@@ -1066,8 +1066,7 @@ inject:
       - <script src="https://cdn.staticfile.org/jquery/3.6.3/jquery.min.js"></script> # jQuery
       - <script async data-pjax src="/js/txmap.js"></script> # 腾讯位置API
       - <script async src="https://npm.elemecdn.com/tzy-blog/lib/js/other/sakura.js"></script>#樱花效果
-      - <div class="aplayer no-destroy" data-id="9516678957" data-server="tencent" data-type="playlist"
-      data-order="list" data-fixed="true" data-preload="auto" data-autoplay="false" data-mutex="true" ></div>
+      
 
 
 
