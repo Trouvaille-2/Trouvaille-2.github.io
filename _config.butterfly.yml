@@ -105,11 +105,11 @@ background: /img/miao5.jpg
 cover:
   # 是否禁用盖板
   index_enable: true
-  aside_enable: true
-  archives_enable: true
+  aside_enable: false
+  archives_enable: false
   # 未设置封面时，将显示默认封面
   default_cover:  ##文章封面
-    # - xxx.jpg
+    /img/light.png
 
 # 替换损坏的图像
 error_img:
@@ -189,7 +189,7 @@ subtitle:
 # 5：信息显示在封面上
 # 6：砖石布局--封面在上，信息在下
 # 7：砖石布局--信息显示在封面上
-index_layout: 3
+index_layout: 6
 
 # 在主页上显示文章介绍
 # 1: 说明
@@ -197,7 +197,7 @@ index_layout: 3
 # 3: 自动提示（默认值）
 # false: 不显示文章简介
 index_post_content:
-  method: 3
+  method: 1
   # If you set method to 2 or 3, the length need to config
   length: 500
 
@@ -394,12 +394,12 @@ darkmode:
   enable: true
   # Toggle Button to switch dark/light mode
   button: true
-  # Switch dark/light mode automatically
-  # autoChangeMode: 1  Following System Settings, if the system doesn't support dark mode, it will switch dark mode between 6 pm to 6 am
-  # autoChangeMode: 2  Switch dark mode between 6 pm to 6 am
+  # 自动切换暗/亮模式
+  # 自动切换模式：1 根据系统设置，如果系统不支持暗模式，则会在下午 6 点到早上 6 点之间切换暗模式
+  # autoChangeMode: 2 在下午 6 点到早上 6 点之间切换暗光模式
   # autoChangeMode: false
   autoChangeMode: 2
-  # Set the light mode time. The value is between 0 and 24. If not set, the default value is 6 and 18
+  # 设置灯光模式时间。数值介于 0 和 24 之间。如果未设置，默认值为 6 和 18
   start:
   end:
 
@@ -1066,17 +1066,17 @@ inject:
       - <script src="https://cdn.staticfile.org/jquery/3.6.3/jquery.min.js"></script> # jQuery
       - <script async data-pjax src="/js/txmap.js"></script> # 腾讯位置API
       - <script async src="https://npm.elemecdn.com/tzy-blog/lib/js/other/sakura.js"></script>#樱花效果
-      
+
 
 
 
 # CDN Settings
-# Don't modify the following settings unless you know how they work
+# 不要修改以下设置，除非你知道它们是如何工作的
 CDN:
-  # The CDN provider for internal and third-party scripts
-  # Options for both: local/jsdelivr/unpkg/cdnjs/custom
-  # Note: Dev version can only use 'local' for internal scripts
-  # Note: When setting third-party scripts to 'local', you need to install hexo-butterfly-extjs
+  # 内部和第三方脚本的 CDN 提供商
+  # 两者的选项： local/jsdelivr/unpkg/cdnjs/custom
+  # 注意：开发版只能将 “本地 ”用于内部脚本
+  # 注意：将第三方脚本设置为 “本地 ”时，需要安装 hexo-butterfly-extjs
   internal_provider: local
   third_party_provider: jsdelivr
 
@@ -1137,7 +1137,7 @@ CDN:
     # snackbar:
     # snackbar_css:
     # translate:
-    # twikoo:
+    #twikoo:
     # typed:
     # utils:
     # valine:
@@ -1182,3 +1182,4 @@ tag_plugins:
     iconfont: //at.alicdn.com/t/font_2032782_8d5kxvn09md.js #参看https://akilar.top/posts/d2ebecef/
     carousel: https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js
     tag_plugins_css: https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css
+    
