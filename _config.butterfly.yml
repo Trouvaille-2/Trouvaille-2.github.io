@@ -169,7 +169,7 @@ subtitle:
   # 1 - hitokoto.cn
   # 2 - https://api.aa1.cn/doc/yiyan.html
   # 3 - jinrishici.com
-  source: false
+  source: 1
   # 如果关闭打字机效果，字幕将只显示第一行字幕。
   sub:
   - "我知这世界本如朝露般短暂，然而，然而 ——小林一茶"
