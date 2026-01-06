@@ -151,6 +151,74 @@ public:
 };
 ```
 
+## 最长连续序列
+暴力法
+```
+
+class Solution {
+public:
+    int longestConsecutive(vector<int>& nums) {
+        if (nums.empty()) return 0;
+
+        sort(nums.begin(), nums.end());
+
+        int count = 1;       
+        int max_count = 1;   
+        int n = nums.size();
+
+        for (int j = 1; j < n; ++j) {
+            if (nums[j] == nums[j-1]) {
+                continue;
+            }
+            else if (nums[j] == nums[j-1] + 1) {
+                count++;
+                if (count > max_count) {
+                    max_count = count;
+                }
+            }
+            else {
+                count = 1; 
+            }
+        }
+
+        return max_count;
+    }
+};
+```
+
+哈希表法
+```
+class Solution {
+public:
+    int longestConsecutive(vector<int>& nums) {
+        unordered_set<int> num_set;
+        for (const int& num : nums) {
+            num_set.insert(num);
+        }
+
+        int longestStreak = 0;
+
+        for (const int& num : num_set) {
+            if (!num_set.count(num - 1)) {
+                int currentNum = num;
+                int currentStreak = 1;
+
+                while (num_set.count(currentNum + 1)) {
+                    currentNum += 1;
+                    currentStreak += 1;
+                }
+
+                longestStreak = max(longestStreak, currentStreak);
+            }
+        }
+
+        return longestStreak;           
+    }
+};
+
+
+```
+
 
 # 双指针
 
@@ -229,6 +297,51 @@ public:
         }
         return ans;
         
+    }
+};
+```
+
+ ## 接雨水
+
+```
+class Solution {
+public:
+    int trap(vector<int>& height) {
+        int n=height.size();
+        if(n<3){return 0;}
+
+        int left=0,right=n-1;
+        int left_max=0,right_max=0;
+        int sum=0;
+
+        while(left<right)
+        {
+            if(height[left]<height[right])
+            {
+                if(height[left]>=left_max)
+                {
+                    left_max=height[left];
+                }
+                else{
+                    sum+=left_max-height[left];
+                }
+                left++;
+            }
+            
+            else{
+                if(height[right]>=right_max)
+                {
+                    right_max=height[right];
+                }
+                else{
+                    sum+=right_max-height[right];
+                }
+                 right--;
+                }
+           
+        }
+
+        return sum;
     }
 };
 ```
