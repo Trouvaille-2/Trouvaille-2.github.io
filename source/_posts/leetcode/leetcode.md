@@ -377,3 +377,60 @@ public:
     }
 };
 ```
+
+# 滑动窗口
+
+无重复字符的最长字串
+
+```
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        int left=0,right=0;
+        int n=s.size();
+        int count=0;
+        unordered_set<char> hash;
+        while(right<n)
+        {
+            if(hash.find(s[right])==hash.end())
+            {
+                hash.insert(s[right]);
+                count=max(count,right-left+1);
+                right++;
+            }
+            else
+            {
+                hash.erase(s[left]);
+                left++;
+            }
+        }
+        return count;
+    }
+};
+
+```
+
+```
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        unordered_map<char, int> lastPos;  
+        int left = 0;                    
+        int maxLen = 0;                    
+
+        for (int right = 0; right < s.size(); ++right) {
+            char c = s[right];
+
+            if (lastPos.count(c) && lastPos[c] >= left) {
+                left = lastPos[c] + 1;      
+            }
+
+            lastPos[c] = right;            
+            maxLen = max(maxLen, right - left + 1);
+        }
+
+        return maxLen;
+    }
+};
+
+```
