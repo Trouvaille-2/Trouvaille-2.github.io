@@ -4,7 +4,8 @@ date: 2025-10-31 9:14:50
 tags: leetcode
 categories: 编程工具
 ---
-![方法函数](image.png)
+![方法函数](fangfa.png)
+
 # 哈希表
 
 >https://blog.csdn.net/Yeeear/article/details/141861208?ops_request_misc=%257B%2522request%255Fid%2522%253A%25222c5bd16a28557e7a9f8659ae82d71535%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=2c5bd16a28557e7a9f8659ae82d71535&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-141861208-null-null.142^v102^control&utm_term=%E5%93%88%E5%B8%8C&spm=1018.2226.3001.4187
@@ -433,4 +434,51 @@ public:
     }
 };
 
+```
+
+找到字符串中所有字母异位词
+
+```
+class Solution {
+public:
+    vector<int> findAnagrams(string s, string p) {
+        vector<int> result;
+        int n=p.size();
+        int c=s.size();
+        int left=0;
+        string tep;
+        if(n>c){return result;}
+        int p_count[26]={0};
+        int window_count[26]={0};
+        for(int i=0;i<n;++i)
+        {
+            p_count[p[i]-'a']++;
+            window_count[s[i]-'a']++;
+        }
+        if(isMatch(p_count,window_count))
+        {
+            result.push_back(0);
+        }
+        for(int i=n;i<c;++i)
+        {
+            window_count[s[i]-'a']++;
+            window_count[s[i-n]-'a']--;
+            if(isMatch(p_count,window_count))
+            {
+                result.push_back(i-n+1);
+            }
+        }
+        return result;
+    }
+
+private:
+    bool isMatch(int a[], int b[]) {
+        for (int i = 0; i < 26; ++i) {
+            if (a[i] != b[i]) {
+                return false;
+            }
+        }
+        return true;
+    }
+};
 ```
