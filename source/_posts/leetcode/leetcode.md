@@ -482,3 +482,55 @@ private:
     }
 };
 ```
+
+# 字串
+
+和为k的子数组
+
+```c++
+class Solution {
+public:
+    int subarraySum(vector<int>& nums, int k) {
+        unordered_map<int, int> mp;
+        mp[0] = 1;
+        int count = 0, pre = 0;
+        for (auto& x:nums) {
+            pre += x;
+            if (mp.find(pre - k) != mp.end()) {
+                count += mp[pre - k];
+            }
+            mp[pre]++;
+        }
+        return count;
+    }
+};
+
+
+```
+
+滑动窗口最大值
+
+```c++
+class Solution {
+public:
+    vector<int> maxSlidingWindow(vector<int>& n, int k) {
+        map<int,int> m;
+        vector<int> v;
+        int len=n.size();
+        int l = 0;
+        for(int i=0;i<len;i++){
+            m[n[i]]++;
+            while(i-l+1>k){
+                m[n[l]]--;
+                if(m[n[l]]==0) m.erase(n[l]);
+                l++;
+            }
+            if(i>=k-1)
+            v.push_back((--m.end())->first);
+        }
+
+        return v;
+    }
+};
+
+```
