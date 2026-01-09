@@ -534,3 +534,166 @@ public:
 };
 
 ```
+
+## 76最小覆盖字串
+
+4ms
+```c++
+class Solution {
+public:
+    string minWindow(string s, string t) {
+        int m = s.size();
+        int n = t.size();
+        if (m < n) {
+            return "";
+        }
+        
+        int need[128] = {0};
+        int originNeed[128] = {0}; 
+        int needCount = 0;
+        
+        for (char c : t) {
+            originNeed[(unsigned char)c]++;
+            if (need[(unsigned char)c] == 0) {
+                needCount++;
+            }
+            need[(unsigned char)c]++;
+        }
+        
+        int left = 0;
+        int minLen = INT_MAX;
+        int startIdx = 0;
+        
+        for (int right = 0; right < m; right++) {
+            char c = s[right];
+            if (originNeed[(unsigned char)c] > 0) { 
+                need[(unsigned char)c]--;
+                if (need[(unsigned char)c] == 0) {
+                    needCount--;
+                }
+            }
+            
+            while (needCount == 0) {
+                int currentLen = right - left + 1;
+                if (currentLen < minLen) {
+                    minLen = currentLen;
+                    startIdx = left;
+                }
+                
+                char leftChar = s[left];
+
+                if (originNeed[(unsigned char)leftChar] > 0) { 
+                    if (need[(unsigned char)leftChar] == 0) {
+                        needCount++;
+                    }
+                    need[(unsigned char)leftChar]++;
+                }
+                left++;
+            }
+        }
+        
+
+        return minLen == INT_MAX ? "" : s.substr(startIdx, minLen);
+    }
+};
+```
+
+0ms
+```c++
+class Solution {
+public:
+    string minWindow(string s, string t) {
+
+        int need[128] = {0};
+        int window[128] = {0};
+        
+    
+        int t_char_count = 0;
+        for (char c : t) {
+            if (need[(int)c] == 0) {
+                t_char_count++;
+            }
+            need[(int)c]++;
+        }
+        
+        int m = s.size();
+        int left = 0; 
+        int valid = 0; 
+        int min_len = INT_MAX; 
+        int start = 0; 
+        
+
+        for (int right = 0; right < m; right++) {
+            char c = s[right];
+            window[(int)c]++; 
+            
+            if (window[(int)c] == need[(int)c]) {
+                valid++;
+            }
+            
+            while (valid == t_char_count) {
+                int current_len = right - left + 1;
+                if (current_len < min_len) {
+                    min_len = current_len;
+                    start = left;
+                }
+                
+
+                char d = s[left];
+                window[(int)d]--; 
+                
+                if (window[(int)d] < need[(int)d]) {
+                    valid--;
+                }
+                
+                left++; 
+            }
+        }
+        
+        return min_len == INT_MAX ? "" : s.substr(start, min_len);
+    }
+};
+
+```
+
+# 普通数组
+
+## 最大字数组和
+
+贪心算法
+```c
+class Solution {
+public:
+    int maxSubArray(vector<int>& nums) {
+        int n = nums.size();
+        if (n == 0) return 0;
+        int current_sum = nums[0]; // 当前连续子数组的和（初始为第一个元素）
+        int max_sum = nums[0];     // 全局最大和（初始为第一个元素，避免全负数问题）
+        
+        for (int i = 1; i < n; ++i) {
+            // 贪心：当前和为负则重置为nums[i]，否则累加nums[i]
+            current_sum = max(nums[i], current_sum + nums[i]);
+            // 更新全局最大和
+            max_sum = max(max_sum, current_sum);
+        }
+        return max_sum;
+    }
+};
+```
+
+题解
+```c
+class Solution {
+public:
+    int maxSubArray(vector<int>& nums) {
+        int pre = 0, maxAns = nums[0];
+        for (const auto &x: nums) {
+            pre = max(pre + x, x);
+            maxAns = max(maxAns, pre);
+        }
+        return maxAns;
+    }
+};
+
+
+```
