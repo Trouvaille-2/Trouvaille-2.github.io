@@ -697,3 +697,62 @@ public:
 
 
 ```
+
+## 合并区间
+
+排序
+```c++
+class Solution {
+public:
+    vector<vector<int>> merge(vector<vector<int>>& intervals) {
+        if(intervals.empty())
+        {
+            return {};
+        }
+        sort(intervals.begin(),intervals.end());
+
+        vector<vector<int>> result;
+        result.push_back(intervals[0]);
+
+        for(int i=1;i<intervals.size();++i)
+        {
+            const vector<int>& curr=intervals[i];
+            vector<int>& last=result.back();
+
+            if(curr[0]<=last[1])
+            {
+                last[1]=max(last[1],curr[1]);
+            }
+            else
+            {
+                result.push_back(curr);
+            }
+        }
+            return result;
+
+        } 
+    
+};
+
+```
+
+排序+双指针
+```c++
+    vector<vector<int>> merge(vector<vector<int>>& intervals) {
+        sort(intervals.begin(), intervals.end());
+        vector<vector<int>> ans;
+        for (int i = 0; i < intervals.size();) {
+            int t = intervals[i][1];
+            int j = i + 1;
+            while (j < intervals.size() && intervals[j][0] <= t) {
+                t = max(t, intervals[j][1]);
+                j++;
+            }
+            ans.push_back({ intervals[i][0], t });
+            i = j;
+        }
+        return ans;
+    }
+
+
+```
