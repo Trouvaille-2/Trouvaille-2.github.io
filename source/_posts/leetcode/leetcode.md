@@ -798,3 +798,47 @@ public:
 };
 ```
 
+# 矩阵
+
+## 矩阵置零
+
+```c
+class Solution {
+public:
+    void setZeroes(vector<vector<int>>& matrix) {
+        int m = matrix.size();
+        if (m == 0) return;
+        int n = matrix[0].size();
+        
+        // 用一个新数组存储所有值为0的元素的 (行, 列)
+        vector<pair<int, int>> zeros;
+        
+        // 第一次遍历：查询并记录所有0的位置
+        for (int i = 0; i < m; ++i) {
+            for (int j = 0; j < n; ++j) {
+                if (matrix[i][j] == 0) {
+                    zeros.emplace_back(i, j);
+                }
+            }
+        }
+        
+        // 第二次遍历：根据记录的位置，将对应行和列置零
+        for (auto& p : zeros) {
+            int row = p.first;
+            int col = p.second;
+            
+            // 置零该行
+            for (int j = 0; j < n; ++j) {
+                matrix[row][j] = 0;
+            }
+            // 置零该列
+            for (int i = 0; i < m; ++i) {
+                matrix[i][col] = 0;
+            }
+        }
+    }
+};
+
+    
+
+```
