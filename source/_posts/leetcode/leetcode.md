@@ -842,3 +842,85 @@ public:
     
 
 ```
+
+## 螺旋矩阵
+循环矩阵：先循环完矩阵的最外层，然后里层是最新的一层，最新的一层矩阵行数和列数是原矩阵减去2，然后再循环里层
+
+
+```c
+class Solution {
+public:
+    vector<int> spiralOrder(vector<vector<int>>& martix) {
+        vector<int> result;
+        if(martix.empty() | martix[0].empty())
+        {
+            return result;
+        }
+
+        int top=0; //行
+        int left=0; //列
+        int m=martix.size()-1;//行数
+        int right=martix[0].size()-1;//列数
+
+        while(top<=m && left<=right)
+        {
+            for(int i=left;i<=right;i++)
+            {
+                result.push_back(martix[top][i]);
+            }
+            top++;
+            for(int j=top;j<=m;j++)
+            {
+                result.push_back(martix[j][right]);
+            }
+            right--;
+            if (top <= m) {
+            for(int z=right;z>=left;z--)
+            {
+                result.push_back(martix[m][z]);
+            }
+            m--;
+            }
+            if(left<=right)
+            {
+            for(int k=m;k>=top;k--)
+            {
+                result.push_back(martix[k][left]);
+            }
+            left++;
+            }
+        }
+        return result;
+    }
+};
+
+
+
+```
+
+## 旋转图像
+
+先进行行和列反转，然后再进行行反转
+
+```c
+class Solution {
+public:
+    void rotate(vector<vector<int>>& matrix) {
+        int n = matrix.size();
+    // 1. 原地转置矩阵（只处理上三角部分）
+    for (int i = 0; i < n; ++i) {
+        for (int j = i + 1; j < n; ++j) {
+            // 用 temp 交换，和你说的思路一致
+            int temp = matrix[i][j];
+            matrix[i][j] = matrix[j][i];
+            matrix[j][i] = temp;
+        }
+    }
+    // 2. 原地反转每一行
+    for (int i = 0; i < n; ++i) {
+        reverse(matrix[i].begin(), matrix[i].end());
+    }
+    }
+};
+
+```
