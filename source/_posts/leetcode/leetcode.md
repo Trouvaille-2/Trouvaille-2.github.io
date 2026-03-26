@@ -924,3 +924,44 @@ public:
 };
 
 ```
+
+## 搜索二维矩阵
+```cpp
+class Solution {
+public:
+    bool searchMatrix(vector<vector<int>>& matrix, int target) {
+        if (matrix.empty() || matrix[0].empty()) {
+        return false;
+    }
+
+    // 获取矩阵行数和列数
+    int m = matrix.size();
+    int n = matrix[0].size();
+
+    // 初始化指针在右上角 (row=0, col=n-1)
+    // 也可以选择左下角 (row=m-1, col=0)，逻辑类似，这里演示右上角法
+    int row = 0;
+    int col = n - 1;
+
+    // 循环条件：行号没越界，列号没越界
+    while (row < m && col >= 0) {
+        int current = matrix[row][col];
+        
+        if (current == target) {
+            // 1. 找到目标值
+            return true;
+        } else if (current > target) {
+            // 2. 当前值太大，目标在左侧，列左移
+            col--;
+        } else {
+            // 3. 当前值太小，目标在下侧，行下移
+            row++;
+        }
+    }
+    
+    // 遍历结束未找到
+    return false;
+    }
+};
+
+```
