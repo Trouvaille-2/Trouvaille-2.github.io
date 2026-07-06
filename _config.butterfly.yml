@@ -61,17 +61,17 @@ local_search:
 # 图片设置
 # --------------------------------------
 
-favicon: /img/muranhuishou.jpg ##网站图片
+favicon: /img/muranhuishou.webp ##网站图片
 
 avatar:  ##个人资料图标
-  img: /img/muranhuishou.jpg
+  img: /img/muranhuishou.webp
   effect: false
 
 # 禁用所有横幅图像
 disable_top_img: false
 
 # 如果未设置页面横幅，则会显示 default_top_img
-default_top_img: /img/miao5.jpg  ##封面
+default_top_img: /img/miao5.webp  ##封面
 
 # 索引页面的横幅图像
 index_img: 
@@ -100,7 +100,7 @@ footer_img: true
 
 # 网站背景
 # 可以设置为颜色或图片 url
-background: /img/miao5.jpg
+background: /img/miao5.webp
 
 cover:
   # 是否禁用盖板
@@ -109,18 +109,18 @@ cover:
   archives_enable: false
   # 未设置封面时，将显示默认封面
   default_cover:  ##文章封面
-    /img/light.png
+    /img/light.webp
 
 # 替换损坏的图像
 error_img:
   flink: /img/friend_404.gif
-  post_page: /img/404.jpg
+  post_page: /img/404.webp
 
 # A simple 404 page
 error_404:
   enable: true
   subtitle: 'Page Not Found'
-  background: /img/error-page.png
+  background: /img/error-page.webp
 
 post_meta:
   # 首页
@@ -1003,7 +1003,7 @@ instantpage: false
 # Lazyload
 # https://github.com/verlok/vanilla-lazyload
 lazyload:
-  enable: false
+  enable: true
   # Specify the field to use lazyload (site or post)
   field: site
   placeholder:
@@ -1045,11 +1045,7 @@ css_prefix: true
 inject:
   head:
     # - <link rel="stylesheet" href="/xxx.css">
-      - <link rel="stylesheet" href="/css/custom.css" media="defer" onload="this.media='all'">
-      - <link rel="stylesheet" href="/css/universe.css">
-      - <link rel="stylesheet" href="/css/custom.css">
-      - <link rel="stylesheet" href="/css/custom.css">
-      - <link rel="stylesheet" href="/css/readPercent.css">
+      - <link rel="stylesheet" href="/css/custom.css" media="print" onload="this.media='all'">
       
   bottom: 
       - <script async src="/js/title.js"></script>
@@ -1060,10 +1056,9 @@ inject:
       - <script defer src="https://npm.elemecdn.com/jquery@latest/dist/jquery.min.js"></script>
       - <script defer data-pjax src="/js/cat.js"></script>
       - <script defer data-pjax src="/js/readPercent.js"></script>
-      - <script defer type="text/javascript" src="https://cdn1.tianli0.top/npm/sweetalert2@8.19.0/dist/sweetalert2.all.js"></script> # 节日弹窗依赖
+      - <script defer type="text/javascript" src="https://cdn.jsdelivr.net/npm/sweetalert2@8.19.0/dist/sweetalert2.all.js"></script> # 节日弹窗依赖
       - <script defer src="/js/lunar.js"></script> # 农历计算
       - <script defer src="/js/day.js"></script> # 节日弹窗
-      - <script src="https://cdn.staticfile.org/jquery/3.6.3/jquery.min.js"></script> # jQuery
       - <script async data-pjax src="/js/txmap.js"></script> # 腾讯位置API
       - <script async src="https://npm.elemecdn.com/tzy-blog/lib/js/other/sakura.js"></script>#樱花效果
 

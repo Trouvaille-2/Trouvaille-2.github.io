@@ -5,7 +5,7 @@ tags: stl
 categories: 编程工具
 ---
 
-![关联式容器](image-1.png)
+![关联式容器](image-1.webp)
 
 # vector
 

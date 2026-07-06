@@ -6,7 +6,7 @@ categories: 嵌入式
 ---
 # c语言
 
-![数据类型](type.png)
+![数据类型](type.webp)
 
 ## 联合体
 
@@ -45,5 +45,5 @@ strcpy(dest, "abc");
 ```
 
 
-![需要补充的语法知识](yufa.png)
+![需要补充的语法知识](yufa.webp)
 

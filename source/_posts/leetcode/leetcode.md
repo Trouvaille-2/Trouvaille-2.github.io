@@ -4,7 +4,7 @@ date: 2025-10-31 9:14:50
 tags: leetcode
 categories: 编程工具
 ---
-![方法函数](fangfa.png)
+![方法函数](fangfa.webp)
 
 # 哈希表
 
