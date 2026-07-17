@@ -1047,9 +1047,8 @@ inject:
     # - <link rel="stylesheet" href="/xxx.css">
       - <link rel="stylesheet" href="/css/custom.css" media="print" onload="this.media='all'">
       
-  bottom: 
+  bottom:
       - <script async src="/js/title.js"></script>
-      - <script src="https://fastly.jsdelivr.net/npm/live2d-widgets@0/autoload.js"></script>
       - <canvas id="universe"></canvas>
       - <script defer src="/js/universe.js"></script>
       - <script defer src="/js/cursor.js"></script>
@@ -1060,7 +1059,19 @@ inject:
       - <script defer data-pjax src="/js/lunar.js"></script> # 农历计算
       - <script defer data-pjax src="/js/day.js"></script> # 节日弹窗
       - <script async data-pjax src="/js/txmap.js"></script> # 腾讯位置API
-      - <script async src="https://npm.elemecdn.com/tzy-blog/lib/js/other/sakura.js"></script>#樱花效果
+      # Live2D & 樱花 → 仅首页加载
+      - <script>
+          function isHP(){return location.pathname==='/'||location.pathname.indexOf('/index.html')!==-1}
+          function loadHP(){
+            if(!isHP())return;
+            if(!document.getElementById('live2d')){var s=document.createElement('script');s.src='https://fastly.jsdelivr.net/npm/live2d-widgets@0/autoload.js';document.body.appendChild(s)}
+            if(!document.querySelector('script[src*="sakura"]')){var s2=document.createElement('script');s2.async=true;s2.src='https://npm.elemecdn.com/tzy-blog/lib/js/other/sakura.js';document.body.appendChild(s2)}
+          }
+          function rmHP(){document.querySelectorAll('[id*="live2d"]').forEach(function(e){e.remove()});document.querySelectorAll('[class*="sakura"]').forEach(function(e){e.remove()})}
+          loadHP();
+          document.addEventListener('pjax:send',function(){if(isHP())rmHP()});
+          document.addEventListener('pjax:complete',loadHP);
+        </script>
 
 
 
