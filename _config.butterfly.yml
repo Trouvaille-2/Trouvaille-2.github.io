@@ -109,10 +109,17 @@ cover:
   archives_enable: false
   # 未设置封面时，从以下列表中随机选一张
   default_cover:
+    - /img/fengmian/R-C.webp
+    - /img/fengmian/R-C%20(1).webp
+    - /img/fengmian/R-C%20(2).webp
+    - /img/fengmian/R-C%20(3).webp
+    - /img/fengmian/R-C(4).webp
+    - /img/fengmian/RC(3).webp
+    - /img/fengmian/RC.webp
+    - /img/fengmian/RCC.webp
+    - /img/fengmian/rccc.webp
     - /img/light.webp
     - /img/miao5.webp
-    - /img/muranhuishou.webp
-    - /img/butterfly-icon.webp
 
 # 替换损坏的图像
 error_img:
