@@ -12,6 +12,6 @@
   link_list:
     - name: Fomalhaut🥝
       link: https://fomal.cc/
-      avatar: /assets/head.jpg
+      avatar: https://fomal.cc/assets/head.jpg
       descr: Future is now 🍭🍭🍭
       siteshot: https://source.fomal.cc/siteshot/www.fomal.cn.jpg
