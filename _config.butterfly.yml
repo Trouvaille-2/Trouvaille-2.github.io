@@ -1111,7 +1111,7 @@ inject:
           }();
         </script>
       # Live2D 看板娘（始终加载，但仅首页显示）
-      - <script src="https://fastly.jsdelivr.net/npm/live2d-widgets@1.0.1/dist/autoload.js"></script>
+      - <script src="/js/autoload.js"></script>
       - '<style>body:not(.home-page) #waifu{display:none!important}</style>'
       - <script>
           function updateL2D(){
