@@ -1068,14 +1068,8 @@ inject:
       - <script defer type="text/javascript" src="https://cdn.jsdelivr.net/npm/sweetalert2@8.19.0/dist/sweetalert2.all.js"></script> # 节日弹窗依赖
       - <script defer data-pjax src="/js/lunar.js"></script> # 农历计算
       - <script defer data-pjax src="/js/day.js"></script> # 节日弹窗
-      # 全局固定播放器（网易云歌单）
-      - <div class="aplayer" data-id="9516678957" data-server="netease" data-type="playlist" data-fixed="true" data-autoplay="false" data-mutex="true" data-theme="#ad7a86" data-preload="auto" data-order="random" data-listmaxheight="240px"></div>
-      - <script>
-          // Pjax 后如果播放器没了，刷新页面恢复
-          document.addEventListener('pjax:complete',function(){
-            if(!document.querySelector('.aplayer-fixed'))location.reload();
-          });
-        </script>
+      # 全局固定播放器（网易云歌单）—— iframe 隔离，Pjax 不影响
+      - <iframe src="/player.html" style="position:fixed;bottom:20px;right:20px;border:none;z-index:9999;width:380px;height:75px" id="g-player-iframe"></iframe>
       # Live2D & 樱花 → 仅首页加载
       - <script>
           function isHP(){return location.pathname==='/'||location.pathname.indexOf('/index.html')!==-1}

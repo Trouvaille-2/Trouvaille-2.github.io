@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:transparent;overflow:hidden}
+.aplayer{background:rgba(255,255,255,.92)!important;border-radius:12px!important;box-shadow:0 4px 20px rgba(0,0,0,.15)!important}
+.aplayer .aplayer-info{padding:0 10px 0 15px!important}
+.aplayer .aplayer-pic{border-radius:8px!important;margin:5px!important}
+.aplayer .aplayer-list{position:fixed!important;bottom:75px!important;right:20px!important;width:360px!important;border-radius:12px!important;box-shadow:0 4px 20px rgba(0,0,0,.15)!important}
+@media(prefers-color-scheme:dark){
+  .aplayer{background:rgba(30,30,30,.95)!important}
+  .aplayer .aplayer-title,.aplayer .aplayer-author{color:#eee!important}
+}
+</style>
+</head>
+<body>
+<div id="player"></div>
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+<script>
+var div=document.createElement('div');
+div.className='aplayer';
+div.setAttribute('data-id','9516678957');
+div.setAttribute('data-server','netease');
+div.setAttribute('data-type','playlist');
+div.setAttribute('data-fixed','true');
+div.setAttribute('data-autoplay','false');
+div.setAttribute('data-mutex','true');
+div.setAttribute('data-theme','#ad7a86');
+div.setAttribute('data-preload','auto');
+div.setAttribute('data-order','random');
+div.setAttribute('data-listmaxheight','240px');
+div.setAttribute('data-volume','0.7');
+document.getElementById('player').appendChild(div);
+</script>
+</body>
+</html>
