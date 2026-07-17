@@ -98,6 +98,10 @@ ignore:
 ## Themes: https://hexo.io/themes/
 theme: butterfly
 
+# APlayer & Meting (music player)
+aplayer:
+  meting: true
+
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:

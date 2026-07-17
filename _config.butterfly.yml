@@ -984,7 +984,7 @@ pjax:
 # Inject the css and script (aplayer/meting)
 aplayerInject:
   enable: true
-  per_page: true
+  per_page: false
 
 # Snackbar - Toast Notification
 # https://github.com/polonel/SnackBar
@@ -1059,6 +1059,8 @@ inject:
       - <script defer data-pjax src="/js/lunar.js"></script> # 农历计算
       - <script defer data-pjax src="/js/day.js"></script> # 节日弹窗
       - <script async data-pjax src="/js/txmap.js"></script> # 腾讯位置API
+      # 全局固定播放器（网易云歌单）
+      - <div class="aplayer" data-id="9516678957" data-server="netease" data-type="playlist" data-fixed="true" data-autoplay="false" data-mutex="true" data-theme="#ad7a86" data-preload="none" data-order="random" data-listmaxheight="240px" data-volume="0.7"></div>
       # Live2D & 樱花 → 仅首页加载
       - <script>
           function isHP(){return location.pathname==='/'||location.pathname.indexOf('/index.html')!==-1}
