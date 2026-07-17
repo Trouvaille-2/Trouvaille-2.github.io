@@ -1069,19 +1069,25 @@ inject:
       - <script defer data-pjax src="/js/lunar.js"></script> # 农历计算
       - <script defer data-pjax src="/js/day.js"></script> # 节日弹窗
       # 全局固定播放器（网易云歌单）—— iframe 隔离，Pjax 不影响
-      - <iframe src="/player.html" style="position:fixed;bottom:20px;right:20px;border:none;z-index:9999;width:380px;height:75px" id="g-player-iframe"></iframe>
-      # Live2D & 樱花 → 仅首页加载
+      - <iframe src="/player.html" style="position:fixed;bottom:20px;right:20px;border:none;z-index:9999;width:380px;height:72px;border-radius:12px;background:transparent" id="g-player-iframe"></iframe>
+      # Live2D 看板娘（始终加载，但仅首页显示）
+      - <script src="https://fastly.jsdelivr.net/npm/live2d-widgets@0/autoload.js"></script>
+      - '<style>body:not(.home-page) #live2d{display:none!important}</style>'
       - <script>
-          function isHP(){return location.pathname==='/'||location.pathname.indexOf('/index.html')!==-1}
-          function loadHP(){
-            if(!isHP())return;
-            if(!document.getElementById('live2d')){var s=document.createElement('script');s.src='https://fastly.jsdelivr.net/npm/live2d-widgets@0/autoload.js';document.body.appendChild(s)}
-            if(!document.querySelector('script[src*="sakura"]')){var s2=document.createElement('script');s2.async=true;s2.src='https://npm.elemecdn.com/tzy-blog/lib/js/other/sakura.js';document.body.appendChild(s2)}
+          function updateL2D(){
+            var isHP=location.pathname==='/'||location.pathname.indexOf('/index.html')!==-1;
+            document.body.classList.toggle('home-page',isHP);
           }
-          function rmHP(){document.querySelectorAll('[id*="live2d"]').forEach(function(e){e.remove()});document.querySelectorAll('[class*="sakura"]').forEach(function(e){e.remove()})}
-          loadHP();
-          document.addEventListener('pjax:send',function(){if(isHP())rmHP()});
-          document.addEventListener('pjax:complete',loadHP);
+          updateL2D();
+          document.addEventListener('pjax:complete',updateL2D);
+        </script>
+      # 樱花效果（仅首页加载）
+      - <script>
+          if(location.pathname==='/'||location.pathname.indexOf('/index.html')!==-1){
+            var s2=document.createElement('script');s2.async=true;
+            s2.src='https://npm.elemecdn.com/tzy-blog/lib/js/other/sakura.js';
+            document.body.appendChild(s2);
+          }
         </script>
 
 
