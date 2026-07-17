@@ -5,20 +5,10 @@
 
 'use strict'
 
+const { escapeHTML } = require('hexo-util')
+
 const score = (args, content) => {
-  // Escape HTML tags and some special characters, including curly braces
-  const escapeHtmlTags = s => {
-    const lookup = {
-      '&': '&amp;',
-      '"': '&quot;',
-      "'": '&apos;',
-      '<': '&lt;',
-      '>': '&gt;',
-      '{': '&#123;',
-      '}': '&#125;'
-    }
-    return s.replace(/[&"'<>{}]/g, c => lookup[c])
-  }
+  const escapeHtmlTags = s => escapeHTML(s).replace(/[{}]/g, c => c === '{' ? '&#123;' : '&#125;')
 
   const trimmed = content.trim()
   // Split content using six dashes as a delimiter
@@ -37,7 +27,7 @@ const score = (args, content) => {
   try {
     paramsObj = JSON.parse(paramPart)
   } catch (e) {
-    console.error("Failed to parse JSON in score tag:", e)
+    console.error('Failed to parse JSON in score tag:', e)
   }
 
   // Use double quotes for data-params attribute value,
@@ -47,4 +37,4 @@ const score = (args, content) => {
   </div>`
 }
 
-hexo.extend.tag.register("score", score, { ends: true })
+hexo.extend.tag.register('score', score, { ends: true })
