@@ -1068,8 +1068,48 @@ inject:
       - <script defer type="text/javascript" src="https://cdn.jsdelivr.net/npm/sweetalert2@8.19.0/dist/sweetalert2.all.js"></script> # 节日弹窗依赖
       - <script defer data-pjax src="/js/lunar.js"></script> # 农历计算
       - <script defer data-pjax src="/js/day.js"></script> # 节日弹窗
-      # 全局固定播放器（网易云歌单）—— iframe 隔离，Pjax 不影响
-      - <iframe src="/player.html" style="position:fixed;bottom:10px;right:10px;border:none;z-index:9999;width:70px;height:70px;background:transparent" id="g-player-iframe"></iframe>
+      # 全局固定播放器（右侧中间，Pjax 不受影响）
+      - <style>
+          .aplayer.aplayer-fixed{right:48px!important;bottom:auto!important;top:50%!important;transform:translateY(-42px)!important}
+          .aplayer .aplayer-list{position:fixed!important;bottom:80px!important;right:48px!important;width:320px!important;border-radius:12px!important;box-shadow:0 4px 30px rgba(0,0,0,.3)!important;max-height:300px!important;overflow-y:auto!important}
+        </style>
+      - <div id="corner-player"></div>
+      - <script>
+          !function(){
+            if(window.__cpDone)return;window.__cpDone=true;
+            function init(){
+              var el=document.getElementById('corner-player');
+              if(!el||el.querySelector('.aplayer'))return;
+              fetch('https://api.i-meto.com/meting/api?server=netease&type=playlist&id=9516678957&r='+Math.random())
+                .then(function(r){return r.json()})
+                .then(function(data){
+                  if(!data||!data.length)throw 'no data';
+                  new APlayer({
+                    container:el,
+                    fixed:true,mini:true,
+                    autoplay:false,theme:'#ad7a86',
+                    loop:'all',order:'random',
+                    preload:'auto',volume:0.7,mutex:true,
+                    listFolded:true,listMaxHeight:'240px',
+                    audio:data.map(function(s){return{
+                      name:s.title,artist:s.author,url:s.url,
+                      cover:s.pic,lrc:s.lrc
+                    }})
+                  });
+                })
+                .catch(function(){setTimeout(init,3000)});
+            }
+            function wait(){
+              if(typeof APlayer!=='undefined')init();
+              else setTimeout(wait,300);
+            }
+            wait();
+            document.addEventListener('pjax:complete',function(){
+              var el=document.getElementById('corner-player');
+              if(el&&!el.querySelector('.aplayer'))setTimeout(init,500);
+            });
+          }();
+        </script>
       # Live2D 看板娘（始终加载，但仅首页显示）
       - <script src="https://fastly.jsdelivr.net/npm/live2d-widgets@0/autoload.js"></script>
       - '<style>body:not(.home-page) #live2d{display:none!important}</style>'
