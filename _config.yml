@@ -129,13 +129,12 @@ categoryBar:
   row: 1 #显示行数，默认两行，超过行数切换为滚动显示
   message:
     - descr: c++
-      cover: miao5.jpg
+      cover: /img/fengmian/R-C.webp
     - descr: python
-      cover: miao5.jpg
+      cover: /img/fengmian/R-C%20(1).webp
     - descr: 随笔
-      cover: miao5.jpg
+      cover: /img/fengmian/R-C%20(2).webp
     - descr: 个人日记
-      cover: miao5.jpg
+      cover: /img/fengmian/R-C%20(3).webp
     - descr: 杂谈教程
-      cover: miao5.jpg
-  custom_css: miao5.jpg
+      cover: /img/light.webp
