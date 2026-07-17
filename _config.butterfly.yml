@@ -1069,7 +1069,7 @@ inject:
       - <script defer data-pjax src="/js/lunar.js"></script> # 农历计算
       - <script defer data-pjax src="/js/day.js"></script> # 节日弹窗
       # 全局固定播放器（网易云歌单）—— iframe 隔离，Pjax 不影响
-      - <iframe src="/player.html" style="position:fixed;bottom:20px;right:20px;border:none;z-index:9999;width:380px;height:72px;border-radius:12px;background:transparent" id="g-player-iframe"></iframe>
+      - <iframe src="/player.html" style="position:fixed;bottom:10px;right:10px;border:none;z-index:9999;width:70px;height:70px;background:transparent" id="g-player-iframe"></iframe>
       # Live2D 看板娘（始终加载，但仅首页显示）
       - <script src="https://fastly.jsdelivr.net/npm/live2d-widgets@0/autoload.js"></script>
       - '<style>body:not(.home-page) #live2d{display:none!important}</style>'

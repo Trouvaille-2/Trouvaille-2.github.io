@@ -1,23 +1,26 @@
 /**
- * Music Visualizer - 封面粒子化 + 频谱
- * 用于 /music/ 页面，配合 APlayer + MetingJS
+ * Music Visualizer — Mineradio 风格：歌词舞台 + 氛围粒子
  */
 (function() {
   'use strict';
 
-  const CFG = {
-    density: 50,       // 采样密度
-    pSize: 2.5,        // 粒子大小
-    spread: 18,        // 音乐扩散半径
-    smooth: 0.06,      // 归位平滑度
-    bars: 64,          // 频谱柱数
-  };
-
   let canvas, ctx, W, H, dpr;
-  let audioCtx, analyser;
-  let particles = [], running = false;
-  let animId = null, imgData = null;
-  let coverUrl = '';
+  let audioCtx, analyser, running = false;
+  let animId = null;
+  let audioEl = null;
+
+  // 粒子系统
+  let stars = [];
+  const STAR_COUNT = 180;
+
+  // 歌词
+  let lrcData = [];
+  let lrcIdx = -1;
+  let lrcTimer = null;
+
+  // 音乐能量
+  let energy = 0, smoothEnergy = 0;
+  let beat = false, beatFrame = 0;
 
   // ======================== 初始化 ========================
 
@@ -28,53 +31,37 @@
     dpr = window.devicePixelRatio || 1;
     resize();
     window.addEventListener('resize', resize);
+    createStars();
     waitForPlayer();
   }
 
   function resize() {
-    const rect = canvas.parentElement.getBoundingClientRect();
-    W = rect.width;
-    H = rect.height;
-    canvas.width = W * dpr;
-    canvas.height = H * dpr;
-    canvas.style.width = W + 'px';
-    canvas.style.height = H + 'px';
+    const r = canvas.parentElement.getBoundingClientRect();
+    W = r.width; H = r.height;
+    canvas.width = W * dpr; canvas.height = H * dpr;
+    canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
   }
 
   // ======================== 连接音频 ========================
 
   function waitForPlayer() {
-    function tryConnect() {
-      const audio = document.querySelector('.aplayer audio');
-      const el = document.querySelector('.aplayer');
-      if (audio && audio.readyState > 0 && el) {
-        connectAudio(audio, el);
-        return true;
+    var poll = setInterval(function() {
+      var audio = document.querySelector('.aplayer audio');
+      if (audio && audio.readyState > 0) {
+        connectAudio(audio);
+        clearInterval(poll);
       }
-      return false;
-    }
-
-    // 轮询
-    const poll = setInterval(() => {
-      if (tryConnect()) clearInterval(poll);
     }, 600);
-    setTimeout(() => clearInterval(poll), 15000);
-
-    // 事件
-    document.addEventListener('play', tryConnect);
-
-    // 如果 APlayer 还没创建，等 DOM
-    if (document.querySelector('.aplayer')) {
-      setTimeout(tryConnect, 1000);
-    }
+    setTimeout(function() { clearInterval(poll); }, 15000);
   }
 
-  function connectAudio(audio, el) {
+  function connectAudio(audio) {
     if (running) return;
+    audioEl = audio;
     try {
       audioCtx = new (window.AudioContext || window.webkitAudioContext)();
       analyser = audioCtx.createAnalyser();
-      analyser.fftSize = 256;
+      analyser.fftSize = 128;
 
       if (audioCtx.state === 'suspended') {
         document.addEventListener('click', function r() {
@@ -83,237 +70,333 @@
         });
       }
 
-      // 每个 audio 只能 createMediaElementSource 一次
       try {
-        const src = audioCtx.createMediaElementSource(audio);
+        var src = audioCtx.createMediaElementSource(audio);
         src.connect(analyser);
         analyser.connect(audioCtx.destination);
-      } catch (e) {
-        // 可能已经连接过了
-      }
+      } catch(e) {}
 
       running = true;
-      loadCover();
-      el.addEventListener('play', loadCover);
+
+      // 监听切歌
+      document.querySelector('.aplayer').addEventListener('play', function() {
+        lrcData = [];
+        lrcIdx = -1;
+        fetchLyrics();
+      });
+
+      // 监听时间更新歌词
+      audio.addEventListener('timeupdate', updateLrc);
+
+      fetchLyrics();
       animate();
-    } catch (e) {
+    } catch(e) {
       running = true;
-      loadCover();
       animate();
     }
   }
 
-  // ======================== 封面粒子化 ========================
+  // ======================== 获取歌词 ========================
 
-  function getCoverUrl() {
-    const pic = document.querySelector('.aplayer-pic');
-    if (!pic) return '';
-    const bg = pic.style.backgroundImage;
-    return bg ? bg.replace(/^url\(["']?/, '').replace(/["']?\)$/, '') : '';
+  function fetchLyrics() {
+    // 从 APlayer 实例获取歌词
+    var audio = document.querySelector('.aplayer audio');
+    if (!audio) return;
+
+    // 先尝试从 APlayer 的 lrc 数据获取
+    // APlayer 会把 lrc 存在 .aplayer-lrc 中
+    var lrcEl = document.querySelector('.aplayer-lrc-contents');
+    if (lrcEl) {
+      parseLrcFromDom(lrcEl);
+      return;
+    }
+
+    // 如果没有，尝试 fetch meting api 获取歌词
+    var title = document.querySelector('.aplayer-title');
+    var author = document.querySelector('.aplayer-author');
+    if (title && title.textContent && title.textContent !== '...') {
+      var songName = title.textContent;
+      var artist = author ? author.textContent : '';
+
+      // 用 meting api 搜索歌词
+      var url = 'https://api.i-meto.com/meting/api?server=netease&type=search&id=' +
+                encodeURIComponent(songName + ' ' + artist) + '&r=' + Math.random();
+      fetch(url)
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          if (data && data.length > 0) {
+            // 获取第一首歌的歌词
+            var lrcUrl = 'https://api.i-meto.com/meting/api?server=netease&type=lrc&id=' +
+                          data[0].id + '&r=' + Math.random();
+            return fetch(lrcUrl).then(function(r) { return r.text(); });
+          }
+        })
+        .then(function(lrcText) {
+          if (lrcText) parseLrc(lrcText);
+        })
+        .catch(function() {});
+    }
   }
 
-  function loadCover() {
-    const url = getCoverUrl();
-    if (!url || url === coverUrl) return;
-    coverUrl = url;
-
-    const img = new Image();
-    img.crossOrigin = 'anonymous';
-    img.src = url;
-    img.onload = () => sampleCover(img);
-    img.onerror = () => {
-      const img2 = new Image();
-      img2.src = url;
-      img2.onload = () => sampleCover(img2);
-      img2.onerror = () => fallbackParticles();
-    };
-  }
-
-  function sampleCover(img) {
-    const s = CFG.density;
-    const w = s, h = Math.round(s * img.height / img.width);
-    const off = document.createElement('canvas');
-    off.width = w; off.height = h;
-    const oc = off.getContext('2d');
-    oc.drawImage(img, 0, 0, w, h);
-    const id = oc.getImageData(0, 0, w, h);
-    imgData = id;
-    buildParticles(id, w, h);
-  }
-
-  function buildParticles(id, w, h) {
-    particles = [];
-    const d = id.data;
-    const gap = 1;
-    const cw = W, ch = H;
-    const sx = cw / (w + 2) * 0.78;
-    const sy = ch / (h + 2) * 0.78;
-    const s = Math.min(sx, sy);
-    const cx = (cw - w * s) / 2;
-    const cy = (ch - h * s) / 2 - 30;
-
-    for (let y = 0; y < h; y += gap) {
-      for (let x = 0; x < w; x += gap) {
-        const i = (y * w + x) * 4;
-        const r = d[i], g = d[i + 1], b = d[i + 2], a = d[i + 3];
-        if (a < 128) continue;
-
-        const tx = cx + x * s;
-        const ty = cy + y * s;
-        particles.push({
-          x: tx + (Math.random() - 0.5) * 80,
-          y: ty + (Math.random() - 0.5) * 80,
-          tx, ty, ox: tx, oy: ty,
-          c: `rgb(${r},${g},${b})`,
-          sz: CFG.pSize * (1 + (255 - a) / 510),
-          ph: Math.random() * Math.PI * 2,
-          sp: 0.3 + Math.random() * 1.2,
-        });
+  function parseLrc(lrcText) {
+    lrcData = [];
+    var lines = lrcText.split('\n');
+    for (var i = 0; i < lines.length; i++) {
+      var match = lines[i].match(/\[(\d{2}):(\d{2})\.(\d{2,3})\](.*)/);
+      if (match) {
+        var min = parseInt(match[1]);
+        var sec = parseInt(match[2]);
+        var ms = parseInt(match[3]);
+        var time = min * 60 + sec + ms / 1000;
+        var text = match[4].trim();
+        if (text) {
+          lrcData.push({ time: time, text: text });
+        }
       }
     }
+    lrcData.sort(function(a, b) { return a.time - b.time; });
+  }
 
-    if (particles.length < 50) {
-      buildParticles(id, w, h);
+  function parseLrcFromDom(el) {
+    // 从 APlayer 的歌词 DOM 解析
+    lrcData = [];
+    var items = el.querySelectorAll('p');
+    for (var i = 0; i < items.length; i++) {
+      var bg = items[i].getAttribute('data-bg') || '';
+      var match = bg ? bg.match(/\[(\d{2}):(\d{2})\.(\d{2,3})\]/) : null;
+      if (match) {
+        var time = parseInt(match[1]) * 60 + parseInt(match[2]) + parseInt(match[3]) / 1000;
+        var text = items[i].textContent.trim();
+        if (text) lrcData.push({ time: time, text: text });
+      }
+    }
+    lrcData.sort(function(a, b) { return a.time - b.time; });
+  }
+
+  function updateLrc() {
+    if (!audioEl || !lrcData.length) return;
+    var currentTime = audioEl.currentTime;
+    var idx = -1;
+    for (var i = lrcData.length - 1; i >= 0; i--) {
+      if (currentTime >= lrcData[i].time) {
+        idx = i;
+        break;
+      }
+    }
+    if (idx !== lrcIdx) {
+      lrcIdx = idx;
     }
   }
 
-  function fallbackParticles() {
-    particles = [];
-    for (let i = 0; i < 500; i++) {
-      const x = W * 0.1 + Math.random() * W * 0.8;
-      const y = H * 0.1 + Math.random() * H * 0.8;
-      particles.push({
-        x, y, tx: x, ty: y, ox: x, oy: y,
-        c: `hsl(${i * 0.72}, 80%, 65%)`,
-        sz: 1.5 + Math.random() * 2,
-        ph: Math.random() * Math.PI * 2,
-        sp: 0.3 + Math.random() * 1.2,
+  // ======================== 粒子系统 ========================
+
+  function createStars() {
+    stars = [];
+    for (var i = 0; i < STAR_COUNT; i++) {
+      stars.push({
+        x: Math.random() * 2000 - 500,
+        y: Math.random() * 2000 - 500,
+        z: Math.random() * 1500 + 200,
+        size: 0.5 + Math.random() * 2,
+        speed: 0.2 + Math.random() * 0.8,
+        brightness: 0.3 + Math.random() * 0.7,
       });
     }
   }
 
-  // ======================== 动画 ========================
+  // ======================== 动画主循环 ========================
 
   function animate() {
     if (!running) return;
 
-    // 获取频谱
-    let freq = null, bass = 0, mid = 0, avg = 0;
+    // 获取频谱能量
+    var freq = null;
     if (analyser) {
       freq = new Uint8Array(analyser.frequencyBinCount);
       analyser.getByteFrequencyData(freq);
-      const n = freq.length;
-      if (n > 0) {
-        for (let i = 0; i < n; i++) {
-          if (i < 4) bass += freq[i];
-          else if (i < 14) mid += freq[i];
-        }
-        bass = bass / 4 / 255;
-        mid = mid / 10 / 255;
-        avg = freq.reduce((a, b) => a + b, 0) / n / 255;
-      }
+      var total = 0;
+      for (var i = 0; i < freq.length; i++) total += freq[i];
+      energy = total / freq.length / 255;
     }
 
-    const energy = Math.min(1, bass * 2.5 + mid * 0.3);
+    // 平滑能量
+    smoothEnergy += (energy - smoothEnergy) * 0.15;
 
-    // 清空
+    // 检测鼓点
+    if (energy > 0.35 && smoothEnergy < 0.2) {
+      beat = true;
+      beatFrame = 10;
+    }
+    if (beatFrame > 0) beatFrame--;
+    else beat = false;
+
+    // === 绘制 ===
     ctx.clearRect(0, 0, W, H);
 
-    // 背景
-    const bg = ctx.createLinearGradient(0, 0, 0, H);
-    bg.addColorStop(0, '#08081a');
-    bg.addColorStop(0.5, '#10102e');
-    bg.addColorStop(1, '#1a082a');
+    // 深色背景
+    var bg = ctx.createRadialGradient(W / 2, H / 2, 0, W / 2, H / 2, W * 0.8);
+    bg.addColorStop(0, '#0e0e24');
+    bg.addColorStop(0.5, '#08081a');
+    bg.addColorStop(1, '#020208');
     ctx.fillStyle = bg;
     ctx.fillRect(0, 0, W, H);
 
-    // 频谱
-    if (freq) drawSpectrum(freq, energy);
+    // 背景光晕（随音乐能量变化）
+    var glowSize = W * (0.3 + smoothEnergy * 0.4);
+    var glow = ctx.createRadialGradient(W / 2, H / 2, 0, W / 2, H / 2, glowSize);
+    var hue = 260 + smoothEnergy * 60;
+    glow.addColorStop(0, 'hsla(' + hue + ', 60%, 40%, ' + (0.08 + smoothEnergy * 0.12) + ')');
+    glow.addColorStop(0.5, 'hsla(' + hue + ', 40%, 20%, ' + (0.04 + smoothEnergy * 0.06) + ')');
+    glow.addColorStop(1, 'transparent');
+    ctx.fillStyle = glow;
+    ctx.fillRect(0, 0, W, H);
 
-    // 粒子
-    drawParticles(energy, bass, mid);
+    // 星云粒子（随音乐流动）
+    drawStars();
 
-    // 歌曲信息
-    drawSongInfo(energy);
+    // 歌词舞台
+    drawLyrics();
 
     animId = requestAnimationFrame(animate);
   }
 
-  function drawSpectrum(freq) {
-    const n = Math.min(CFG.bars, freq.length);
-    const bw = W / n;
-    const mh = H * 0.22;
-    const by = H - 10;
+  // ======================== 星云粒子 ========================
 
-    for (let i = 0; i < n; i++) {
-      const idx = Math.floor(i * freq.length / n);
-      const v = freq[idx] / 255;
-      if (v < 0.04) continue;
+  function drawStars() {
+    var cx = W / 2;
+    var cy = H / 2;
+    var flowSpeed = 0.002 + smoothEnergy * 0.005;
+    var beatBoost = beat ? 15 : 0;
 
-      const bh = v * mh;
-      const h = 240 + i * 1.8;
+    for (var i = 0; i < stars.length; i++) {
+      var s = stars[i];
 
-      ctx.fillStyle = `hsla(${h}, 85%, 65%, ${0.5 + v * 0.5})`;
-      const r = Math.min(2.5, bw / 3);
+      // 粒子缓慢旋转（银河效果）
+      var angle = Math.atan2(s.y, s.x) + flowSpeed * s.speed;
+      var radius = Math.sqrt(s.x * s.x + s.y * s.y);
+      s.x = Math.cos(angle) * radius;
+      s.y = Math.sin(angle) * radius;
+
+      // Z轴呼吸
+      s.z += (Math.random() - 0.5) * (1 + smoothEnergy * 2);
+
+      // 投影到屏幕
+      var scale = 600 / (s.z + 100);
+      var px = cx + s.x * scale;
+      var py = cy + s.y * scale - 30;
+
+      // 裁剪
+      if (px < 0 || px > W || py < 0 || py > H) continue;
+
+      // 大小随能量变化
+      var size = s.size * scale * (0.5 + smoothEnergy * 1.5) + (beat ? s.size : 0);
+
+      // 亮度随音乐闪烁
+      var bright = s.brightness * (0.5 + smoothEnergy * 0.8) + (beat ? 0.3 : 0);
+      bright = Math.min(1, bright);
+
+      // 颜色：白/蓝/紫渐变
+      var hue2 = 240 + s.brightness * 60 + smoothEnergy * 30;
       ctx.beginPath();
-      ctx.roundRect(i * bw + 0.5, by - bh, bw - 1, bh, r);
-      ctx.fill();
-    }
-  }
-
-  function drawParticles(energy, bass, mid) {
-    if (!particles.length) return;
-    const spread = energy * CFG.spread;
-
-    for (const p of particles) {
-      const ox = Math.sin(p.ph + performance.now() * 0.002 * p.sp) * spread;
-      const oy = Math.cos(p.ph + performance.now() * 0.0015 * p.sp) * spread * 0.6;
-
-      p.tx = p.ox + ox;
-      p.ty = p.oy + oy;
-
-      p.x += (p.tx - p.x) * CFG.smooth;
-      p.y += (p.ty - p.y) * CFG.smooth;
-
-      const sz = p.sz + energy * 1.2;
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, sz, 0, Math.PI * 2);
-      ctx.fillStyle = p.c;
+      ctx.arc(px, py, Math.max(0.3, size), 0, Math.PI * 2);
+      ctx.fillStyle = 'hsla(' + hue2 + ', 70%, ' + (70 + bright * 30) + '%, ' + bright + ')';
       ctx.fill();
 
-      // 发光
-      if (energy > 0.25) {
+      // 大能量时加光晕
+      if (smoothEnergy > 0.25 && Math.random() > 0.7) {
         ctx.beginPath();
-        ctx.arc(p.x, p.y, sz * 2.2, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255,255,255,${energy * 0.06})`;
+        ctx.arc(px, py, size * 3, 0, Math.PI * 2);
+        ctx.fillStyle = 'hsla(' + hue2 + ', 60%, 70%, ' + (smoothEnergy * 0.04) + ')';
         ctx.fill();
       }
     }
   }
 
-  function drawSongInfo(energy) {
-    const title = document.querySelector('.aplayer-title');
-    const author = document.querySelector('.aplayer-author');
-    if (!title) return;
+  // ======================== 歌词舞台 ========================
 
-    ctx.fillStyle = 'rgba(255,255,255,0.85)';
-    ctx.font = '18px system-ui, sans-serif';
+  function drawLyrics() {
+    if (!lrcData.length) {
+      // 没有歌词时显示歌曲名
+      var title = document.querySelector('.aplayer-title');
+      if (title && title.textContent && title.textContent !== '...') {
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+
+        // 歌名 - 大号发光
+        var fs = Math.min(W * 0.06, 36);
+        ctx.font = '600 ' + fs + 'px system-ui, -apple-system, sans-serif';
+
+        // 发光
+        ctx.shadowColor = 'rgba(140, 120, 255, 0.4)';
+        ctx.shadowBlur = 30 + smoothEnergy * 40;
+
+        ctx.fillStyle = 'rgba(255,255,255,0.9)';
+        ctx.fillText(title.textContent, W / 2, H / 2 - fs * 0.3);
+
+        ctx.shadowBlur = 0;
+
+        // 歌手
+        var author = document.querySelector('.aplayer-author');
+        if (author && author.textContent) {
+          ctx.font = '14px system-ui, sans-serif';
+          ctx.fillStyle = 'rgba(255,255,255,0.4)';
+          ctx.fillText(author.textContent, W / 2, H / 2 + fs * 0.6);
+        }
+      }
+      return;
+    }
+
+    // 有歌词时显示歌词
     ctx.textAlign = 'center';
-    ctx.fillText(title.textContent, W / 2, 30);
+    ctx.textBaseline = 'middle';
 
-    if (author && author.textContent) {
-      ctx.fillStyle = 'rgba(255,255,255,0.45)';
-      ctx.font = '13px system-ui, sans-serif';
-      ctx.fillText(author.textContent, W / 2, 52);
+    var currentText = '';
+    var nextText = '';
+    var currentIdx = lrcIdx >= 0 ? lrcIdx : -1;
+
+    if (currentIdx >= 0 && currentIdx < lrcData.length) {
+      currentText = lrcData[currentIdx].text;
+    }
+    if (currentIdx + 1 >= 0 && currentIdx + 1 < lrcData.length) {
+      nextText = lrcData[currentIdx + 1].text;
     }
 
-    // 播放状态
-    const playing = document.querySelector('.aplayer-play')?.classList.contains('aplayer-play');
-    if (playing) {
-      ctx.fillStyle = `rgba(255,255,255,${0.15 + energy * 0.15})`;
-      ctx.font = '11px system-ui, sans-serif';
-      ctx.fillText('▶ PLAYING', W / 2, H - 20);
+    // 主歌词（当前行）—— 大号发光字体
+    if (currentText) {
+      var fs = Math.min(W * 0.055, 32);
+      ctx.font = '700 ' + fs + 'px system-ui, -apple-system, sans-serif';
+
+      // 多层发光
+      var glowIntensity = 0.3 + smoothEnergy * 0.4 + (beat ? 0.3 : 0);
+
+      ctx.shadowColor = 'rgba(160, 130, 255, ' + glowIntensity + ')';
+      ctx.shadowBlur = 40 + glowIntensity * 60;
+
+      ctx.fillStyle = 'rgba(255,255,255,0.95)';
+      ctx.fillText(currentText, W / 2, H / 2 - fs * 0.5);
+
+      ctx.shadowBlur = 0;
     }
+
+    // 下一行歌词（预显示）—— 小号半透明
+    if (nextText) {
+      var fs2 = Math.min(W * 0.03, 18);
+      ctx.font = '400 ' + fs2 + 'px system-ui, sans-serif';
+      ctx.fillStyle = 'rgba(255,255,255,0.3)';
+      ctx.fillText(nextText, W / 2, H / 2 + W * 0.07);
+    }
+
+    // 底部状态
+    ctx.font = '11px system-ui, sans-serif';
+    ctx.fillStyle = 'rgba(255,255,255,0.15)';
+    ctx.textAlign = 'right';
+    ctx.textBaseline = 'bottom';
+    // 显示歌词进度
+    if (audioEl && lrcData.length > 0) {
+      var progress = lrcIdx >= 0 ? (lrcIdx + 1) / lrcData.length : 0;
+      ctx.fillText(Math.round(progress * 100) + '%', W - 15, H - 10);
+    }
+    ctx.textAlign = 'center';
   }
 
   // ======================== 启动 ========================
@@ -323,6 +406,8 @@
   } else {
     init();
   }
-  document.addEventListener('pjax:complete', () => setTimeout(init, 500));
+  document.addEventListener('pjax:complete', function() {
+    setTimeout(init, 500);
+  });
 
 })();
