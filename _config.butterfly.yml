@@ -1068,32 +1068,13 @@ inject:
       - <script defer type="text/javascript" src="https://cdn.jsdelivr.net/npm/sweetalert2@8.19.0/dist/sweetalert2.all.js"></script> # 节日弹窗依赖
       - <script defer data-pjax src="/js/lunar.js"></script> # 农历计算
       - <script defer data-pjax src="/js/day.js"></script> # 节日弹窗
-      # 全局固定播放器（网易云歌单）—— 用 JS 注入 body，避免 Pjax 重渲染打断音乐
+      # 全局固定播放器（网易云歌单）
+      - <div class="aplayer" data-id="9516678957" data-server="netease" data-type="playlist" data-fixed="true" data-autoplay="false" data-mutex="true" data-theme="#ad7a86" data-preload="auto" data-order="random" data-listmaxheight="240px"></div>
       - <script>
-          !function(){
-            var PID='g-aplayer';
-            function init(){
-              if(document.getElementById(PID))return;
-              var d=document.createElement('div');
-              d.id=PID;d.className='aplayer';
-              d.setAttribute('data-id','9516678957');
-              d.setAttribute('data-server','netease');
-              d.setAttribute('data-type','playlist');
-              d.setAttribute('data-fixed','true');
-              d.setAttribute('data-autoplay','false');
-              d.setAttribute('data-mutex','true');
-              d.setAttribute('data-theme','#ad7a86');
-              d.setAttribute('data-preload','auto');
-              d.setAttribute('data-order','random');
-              d.setAttribute('data-listmaxheight','240px');
-              document.body.appendChild(d);
-            }
-            init();
-            // Pjax 切换后检查播放器是否还在，不在了就重建
-            document.addEventListener('pjax:complete',function(){
-              if(!document.querySelector('.aplayer-fixed'))setTimeout(init,500);
-            });
-          }();
+          // Pjax 后如果播放器没了，刷新页面恢复
+          document.addEventListener('pjax:complete',function(){
+            if(!document.querySelector('.aplayer-fixed'))location.reload();
+          });
         </script>
       # Live2D & 樱花 → 仅首页加载
       - <script>
