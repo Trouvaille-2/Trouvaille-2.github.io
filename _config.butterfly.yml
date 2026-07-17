@@ -793,7 +793,7 @@ preloader:
   # source
   # 1. fullpage-loading
   # 2. pace (progress bar)
-  source: 1
+  source: 2
   # pace theme (see https://codebyzach.github.io/pace/)
   pace_css_url:
 
@@ -976,7 +976,7 @@ note:
 
 # https://github.com/MoOx/pjax
 pjax:
-  enable: false
+  enable: true
   # Exclude the specified pages from pjax, such as '/music/'
   exclude:
     # - /xxxxxx/
@@ -1057,8 +1057,8 @@ inject:
       - <script defer data-pjax src="/js/cat.js"></script>
       - <script defer data-pjax src="/js/readPercent.js"></script>
       - <script defer type="text/javascript" src="https://cdn.jsdelivr.net/npm/sweetalert2@8.19.0/dist/sweetalert2.all.js"></script> # 节日弹窗依赖
-      - <script defer src="/js/lunar.js"></script> # 农历计算
-      - <script defer src="/js/day.js"></script> # 节日弹窗
+      - <script defer data-pjax src="/js/lunar.js"></script> # 农历计算
+      - <script defer data-pjax src="/js/day.js"></script> # 节日弹窗
       - <script async data-pjax src="/js/txmap.js"></script> # 腾讯位置API
       - <script async src="https://npm.elemecdn.com/tzy-blog/lib/js/other/sakura.js"></script>#樱花效果
 
