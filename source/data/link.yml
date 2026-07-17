@@ -15,3 +15,15 @@
       avatar: https://fomal.cc/assets/head.jpg
       descr: Future is now 🍭🍭🍭
       siteshot: https://source.fomal.cc/siteshot/www.fomal.cn.jpg
+
+    - name: 安知鱼
+      link: https://blog.anheyu.com/
+      avatar: https://blog.anheyu.com/favicon.ico
+      descr: 生活明朗，万物可爱
+      siteshot: https://source.fomal.cc/siteshot/blog.anheyu.com.jpg
+
+    - name: Akilar
+      link: https://akilar.top/
+      avatar: https://npm.elemecdn.com/akiblog@1.0.2/img/author.webp
+      descr: 流水幽吟绕耳边，煦风馨语抚心弦
+      siteshot: https://source.fomal.cc/siteshot/akilar.top.jpg
