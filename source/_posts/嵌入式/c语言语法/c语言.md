@@ -78,3 +78,16 @@ struct tag
 https://blog.csdn.net/weixin_45031801/article/details/127621419?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522b20a57a1732ed963e34cee5c50d96468%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=b20a57a1732ed963e34cee5c50d96468&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-127621419-null-null.142^v102^control&utm_term=c%E8%AF%AD%E8%A8%80%20%E7%BB%93%E6%9E%84%E4%BD%93&spm=1018.2226.3001.4187
 
 
+
+# 常用语法
+
+## 枚举
+
+1. 枚举类型中,如果不显式赋值,第一个枚举常量默认值为0,后续枚举常量依次加1
+2. 如果显式赋值,则后续未赋值的枚举常量会在前一个值的基础上加1
+
+## 变量的内存分配机制
+
+在程序运行时,不同类型的变量会被分配到不同的内存区域。
+
+局部变量存储在栈区，全局变量,存储在全局数据区.
