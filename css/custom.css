@@ -836,3 +836,78 @@ body {
   color: #49b1f5;
   margin-right: 6px;
 }
+
+/* ========================================================
+   右下角悬浮按钮组高质感美化与夜间模式高亮醒目化
+   ======================================================== */
+#rightside {
+  opacity: 1 !important;
+}
+
+#rightside > div > button,
+#rightside > div > a {
+  border-radius: 10px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18) !important;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+  font-size: 17px !important;
+}
+
+/* 白天模式 */
+[data-theme="light"] #rightside > div > button,
+[data-theme="light"] #rightside > div > a {
+  background: rgba(255, 255, 255, 0.92) !important;
+  color: #49b1f5 !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  border: 1px solid rgba(73, 177, 245, 0.3) !important;
+}
+[data-theme="light"] #rightside > div > button:hover,
+[data-theme="light"] #rightside > div > a:hover {
+  background: #49b1f5 !important;
+  color: #fff !important;
+  box-shadow: 0 6px 18px rgba(73, 177, 245, 0.45) !important;
+  transform: scale(1.1) !important;
+}
+
+/* 夜间模式：彻底解决黑夜看不见问题，采用高辨识度青蓝与霓虹光感 */
+[data-theme="dark"] #rightside > div > button,
+[data-theme="dark"] #rightside > div > a {
+  background: rgba(28, 35, 51, 0.95) !important;
+  color: #00d2d3 !important; /* 荧光青绿，极度清晰醒目 */
+  border: 1.5px solid rgba(0, 210, 211, 0.5) !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6), 0 0 10px rgba(0, 210, 211, 0.3) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+}
+[data-theme="dark"] #rightside > div > button:hover,
+[data-theme="dark"] #rightside > div > a:hover {
+  background: linear-gradient(135deg, #00d2d3, #54a0ff) !important;
+  color: #fff !important;
+  box-shadow: 0 6px 20px rgba(0, 210, 211, 0.6) !important;
+  transform: scale(1.1) !important;
+}
+
+/* 核心齿轮设置按钮：独立渐变彩色，黑夜白天绝不隐形 */
+#rightside #rightside-config {
+  background: linear-gradient(135deg, #49b1f5, #a29bfe) !important;
+  color: #fff !important;
+  border: none !important;
+  box-shadow: 0 4px 14px rgba(73, 177, 245, 0.5) !important;
+}
+#rightside #rightside-config:hover {
+  background: linear-gradient(135deg, #ff758c, #ff7eb3) !important;
+  transform: scale(1.15) !important;
+}
+[data-theme="dark"] #rightside #rightside-config {
+  background: linear-gradient(135deg, #0984e3, #6c5ce7) !important;
+  color: #fff !important;
+  box-shadow: 0 4px 18px rgba(108, 92, 231, 0.6), 0 0 12px rgba(9, 132, 227, 0.5) !important;
+  border: 1px solid rgba(162, 155, 254, 0.6) !important;
+}
+
+/* 夜间模式下的明暗切换太阳/月亮图标高亮金黄色 */
+[data-theme="dark"] #rightside #darkmode {
+  color: #f1c40f !important;
+  border-color: rgba(241, 196, 15, 0.6) !important;
+  box-shadow: 0 0 10px rgba(241, 196, 15, 0.35) !important;
+}
