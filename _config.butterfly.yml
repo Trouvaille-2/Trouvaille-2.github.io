@@ -34,7 +34,7 @@ menu:  ##菜单
 code_blocks:
   # Code block theme: darker / pale night / light / ocean / false
   theme: darker
-  macStyle: false
+  macStyle: true
   # Code block height limit (unit: px)
   height_limit: 230
   word_wrap: false
