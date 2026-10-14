@@ -836,13 +836,3 @@ body {
   color: #49b1f5;
   margin-right: 6px;
 }
-
-/* ========================================================
-   Feature B: 3D 视差倾斜平滑过渡
-   ======================================================== */
-.card-widget,
-.recent-post-item {
-  transform-style: preserve-3d;
-  will-change: transform;
-  transition: transform 0.15s ease-out, box-shadow 0.3s ease;
-}
