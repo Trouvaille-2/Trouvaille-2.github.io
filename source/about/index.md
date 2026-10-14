@@ -44,6 +44,23 @@ top_img: /img/miao5.webp
 
 ---
 
+## 📊 开源贡献与 GitHub 动态
+
+<div style="display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; margin: 1.5rem 0;">
+  <a href="https://github.com/Trouvaille-2" target="_blank" rel="noopener">
+    <img src="https://github-readme-stats.vercel.app/api?username=Trouvaille-2&show_icons=true&locale=cn&theme=vue-dark&hide_border=true&bg_color=00000000" alt="GitHub Stats" loading="lazy" style="max-width: 100%; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.15);" />
+  </a>
+  <a href="https://github.com/Trouvaille-2" target="_blank" rel="noopener">
+    <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Trouvaille-2&layout=compact&locale=cn&theme=vue-dark&hide_border=true&bg_color=00000000" alt="Top Langs" loading="lazy" style="max-width: 100%; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.15);" />
+  </a>
+</div>
+
+<div style="margin-top: 10px; text-align: center;">
+  <img src="https://ghchart.rshah.org/409eff/Trouvaille-2" alt="GitHub 绿格子热力图" style="width: 100%; max-width: 780px; border-radius: 8px;" loading="lazy" />
+</div>
+
+---
+
 ## 💡 为什么叫「一只特立独行的猪」？
 
 > “我已经四十岁了，除了这只猪，还没见过谁敢于如此无视对生活的设置。相反，我倒见过很多想要设置别人生活的人，还有对被设置的生活安之若素的人。因为这个原故，我最高兴的就是碰见一只特立独行的猪；我也想我也能够那样，自由自在。” —— 王小波《一只特立独行的猪》

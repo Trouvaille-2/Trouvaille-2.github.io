@@ -641,12 +641,18 @@ twikoo:
 # Giscus
 # https://giscus.app/
 giscus:
-  repo:
-  repo_id:
-  category_id:
+  repo: Trouvaille-2/Trouvaille-2.github.io
+  repo_id: 
+  category_id: 
+  category: General
+  mapping: pathname
+  strict: 0
+  reactions_enabled: 1
+  emit_metadata: 0
+  input_position: bottom
   light_theme: light
   dark_theme: dark
-  js:
+  js: https://giscus.app/client.js
   option:
 
 # Remark42
@@ -1064,6 +1070,8 @@ inject:
       - <script defer src="/js/click-heart.js"></script>
       - <script defer data-pjax src="/js/lunar.js"></script> # 农历计算
       - <script defer data-pjax src="/js/day.js"></script> # 节日弹窗（按需动态加载弹窗库）
+      - <script defer data-pjax src="/js/fun-features.js"></script> # 极光进度条、一键换壁纸、3D视差卡片
+      - <script defer data-pjax src="/js/sidebar-widgets.js"></script> # 程序员老黄历、历史上的今天
       # 全局固定播放器（右侧中间，Pjax 不受影响）
       - <style>
           .aplayer.aplayer-fixed{right:48px!important;bottom:auto!important;top:50%!important;transform:translateY(-42px)!important}
