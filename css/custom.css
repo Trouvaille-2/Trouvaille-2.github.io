@@ -711,3 +711,22 @@ body {
   border-color: transparent !important;
   box-shadow: 0 6px 18px rgba(73, 177, 245, 0.35) !important;
 }
+
+/* ========================================================
+   移动端极致轻量化：屏蔽大屏幕特效，提升手持设备帧率与流畅度
+   ======================================================== */
+@media screen and (max-width: 768px) {
+  #waifu,
+  #universe,
+  #cursor {
+    display: none !important;
+  }
+
+  /* 手机端禁用可能造成滚动手感卡顿的高频文字投影动画 */
+  [data-theme="dark"] #site-name,
+  [data-theme="dark"] #site-title,
+  [data-theme="dark"] #site-subtitle,
+  [data-theme="dark"] #post-info {
+    animation: none !important;
+  }
+}
