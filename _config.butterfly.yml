@@ -1056,6 +1056,7 @@ inject:
   head:
     # - <link rel="stylesheet" href="/xxx.css">
       - <link rel="stylesheet" href="/css/custom.css" media="print" onload="this.media='all'">
+      - <script>var meting_api="https://api.injahow.cn/meting/?server=:server&type=:type&id=:id&auth=:auth&r=:r";</script>
       
   bottom:
       - <script async src="/js/title.js"></script>
@@ -1069,6 +1070,7 @@ inject:
       - <style>
           .aplayer.aplayer-fixed{right:48px!important;bottom:auto!important;top:50%!important;transform:translateY(-42px)!important}
           .aplayer .aplayer-list{position:fixed!important;bottom:80px!important;right:48px!important;width:320px!important;border-radius:12px!important;box-shadow:0 4px 30px rgba(0,0,0,.3)!important;max-height:300px!important;overflow-y:auto!important}
+          .aplayer .aplayer-notice{display:none!important}
         </style>
       - <div id="corner-player"></div>
       - <script>
@@ -1077,7 +1079,7 @@ inject:
             function init(){
               var el=document.getElementById('corner-player');
               if(!el||el.querySelector('.aplayer'))return;
-              fetch('https://api.i-meto.com/meting/api?server=netease&type=playlist&id=9516678957&r='+Math.random())
+              fetch('https://api.injahow.cn/meting/?server=netease&type=playlist&id=9516678957')
                 .then(function(r){return r.json()})
                 .then(function(data){
                   if(!data||!data.length)throw 'no data';
@@ -1089,8 +1091,8 @@ inject:
                     preload:'auto',volume:0.7,mutex:true,
                     listFolded:true,listMaxHeight:'240px',
                     audio:data.map(function(s){return{
-                      name:s.title,artist:s.author,url:s.url,
-                      cover:s.pic,lrc:s.lrc
+                      name:s.name||s.title,artist:s.artist||s.author,url:s.url,
+                      cover:s.pic||s.cover,lrc:s.lrc
                     }})
                   });
                 })

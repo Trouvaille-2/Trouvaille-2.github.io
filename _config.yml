@@ -102,6 +102,7 @@ theme: butterfly
 # APlayer & Meting (music player)
 aplayer:
   meting: true
+  meting_api: "https://api.injahow.cn/meting/?server=:server&type=:type&id=:id&auth=:auth&r=:r"
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment

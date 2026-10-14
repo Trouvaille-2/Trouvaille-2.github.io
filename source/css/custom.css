@@ -311,3 +311,8 @@
   color: #fff;
   background-color: rgba(181, 142, 184, 0.6);
 }
+
+/* 屏蔽 APlayer 音频报错弹窗（遇到 VIP / 灰色无版权歌曲静默直接切歌） */
+.aplayer .aplayer-notice {
+  display: none !important;
+}
