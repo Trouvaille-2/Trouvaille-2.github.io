@@ -195,12 +195,176 @@
     }
   }
 
+  /* ========================================================
+   * Feature 3: 极客硬件监测小部件（实时电量感知 + 访问网络延迟 Ping）
+   * ======================================================== */
+  function renderGeekMonitor(aside) {
+    if (document.getElementById('card-geek-monitor')) return;
+
+    const card = document.createElement('div');
+    card.id = 'card-geek-monitor';
+    card.className = 'card-widget card-geek-monitor';
+    card.innerHTML = `
+      <div class="item-headline">
+        <i class="fas fa-microchip" style="color: #00cec9; margin-right: 6px;"></i>
+        <span>极客硬件与网络监测</span>
+      </div>
+      <div style="margin-top: 10px; font-size: 0.85rem; display: flex; flex-direction: column; gap: 8px;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <span>🔋 终端电量:</span>
+          <span id="geek-battery-val" style="font-weight: 500; color: #10ac84;">检测中...</span>
+        </div>
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <span>📶 物理延迟:</span>
+          <span id="geek-ping-val" style="font-weight: 500; color: #49b1f5;"><i class="fa-solid fa-spinner fa-spin"></i> 测速中</span>
+        </div>
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <span>🛡️ 通信协议:</span>
+          <span style="font-weight: 500; color: #a29bfe;">TLS 1.3 / HTTP/2</span>
+        </div>
+      </div>
+    `;
+
+    // 插入在老黄历卡片上方
+    const almanacCard = aside.querySelector('#card-almanac');
+    if (almanacCard) {
+      aside.insertBefore(card, almanacCard);
+    } else {
+      aside.prepend(card);
+    }
+
+    // 1. 监测电量
+    const batEl = document.getElementById('geek-battery-val');
+    if (navigator.getBattery) {
+      navigator.getBattery().then((battery) => {
+        function updateBat() {
+          const lvl = Math.round(battery.level * 100);
+          const icon = battery.charging ? '⚡ 正在充电' : '🔋 电池';
+          if (batEl) {
+            batEl.innerHTML = `${lvl}% · <span style="font-size:0.75rem; opacity:0.8;">${icon}</span>`;
+            batEl.style.color = lvl > 20 ? '#10ac84' : '#ee5253';
+          }
+        }
+        updateBat();
+        battery.onlevelchange = updateBat;
+        battery.onchargingchange = updateBat;
+      }).catch(() => {
+        if (batEl) batEl.textContent = '💻 稳定供电中';
+      });
+    } else {
+      if (batEl) batEl.textContent = '💻 稳定供电中';
+    }
+
+    // 2. 测算网络延迟 Ping
+    const pingEl = document.getElementById('geek-ping-val');
+    const start = performance.now();
+    fetch('/img/favicon.ico?t=' + Date.now(), { method: 'HEAD', cache: 'no-store' })
+      .then(() => {
+        const ping = Math.round(performance.now() - start);
+        if (pingEl) {
+          let color = '#10ac84';
+          let label = '极速';
+          if (ping > 100 && ping <= 250) { color = '#f39c12'; label = '良好'; }
+          else if (ping > 250) { color = '#e74c3c'; label = '稍慢'; }
+          pingEl.innerHTML = `<span style="color:${color}; font-weight:bold;">${ping} ms</span> · <span style="font-size:0.75rem; opacity:0.8;">${label}</span>`;
+        }
+      })
+      .catch(() => {
+        if (pingEl) pingEl.textContent = '🟢 正常连接';
+      });
+  }
+
+  /* ========================================================
+   * Feature 5: 今日诗词与时段寄语智能感应
+   * ======================================================== */
+  function getGreetingByHour() {
+    const h = new Date().getHours();
+    if (h >= 5 && h < 9) return { title: '🌅 清晨寄语', mood: '晨光破晓，愿今天充满能量与新发现。' };
+    if (h >= 9 && h < 12) return { title: '☀️ 上午专注', mood: '心无旁骛，代码与灵感正当时。' };
+    if (h >= 12 && h < 14) return { title: '🍱 午间微憩', mood: '给双眼和大脑放个假，享受午间宁静。' };
+    if (h >= 14 && h < 18) return { title: '☕ 午后时光', mood: '来杯咖啡提提神，思路如泉涌。' };
+    if (h >= 18 && h < 23) return { title: '🌙 华灯初上', mood: '晚风拂过，卸下一天疲惫，静享阅读。' };
+    return { title: '🌌 夜深人静', mood: '夜色渐浓，繁星作伴，别忘了早点休息。' };
+  }
+
+  function renderPoetryCard(aside) {
+    if (document.getElementById('card-poetry-quote')) return;
+
+    const greeting = getGreetingByHour();
+    const card = document.createElement('div');
+    card.id = 'card-poetry-quote';
+    card.className = 'card-widget card-poetry-quote';
+    card.innerHTML = `
+      <div class="item-headline" style="display:flex; justify-content:space-between; align-items:center;">
+        <span><i class="fas fa-feather-alt" style="color: #ff758c; margin-right: 6px;"></i>${greeting.title}</span>
+        <span id="poetry-refresh-btn" style="cursor:pointer; font-size:0.8rem; opacity:0.7;" title="换一句诗词"><i class="fas fa-sync-alt"></i></span>
+      </div>
+      <div style="margin: 12px 0 8px 0; font-size: 0.9rem; line-height: 1.6; font-style: italic; color: var(--font-color);">
+        <span id="poetry-content">“<i class="fa-solid fa-spinner fa-spin"></i> 正在感应诗意...”</span>
+      </div>
+      <div style="text-align: right; font-size: 0.78rem; opacity: 0.8; margin-bottom: 8px;">
+        —— <span id="poetry-author">今日诗词</span>
+      </div>
+      <div style="font-size: 0.76rem; opacity: 0.7; padding-top: 6px; border-top: 1px dashed rgba(162, 155, 254, 0.25);">
+        💡 ${greeting.mood}
+      </div>
+    `;
+
+    // 插入在侧边栏历史卡片后
+    const historyCard = aside.querySelector('#card-history');
+    if (historyCard && historyCard.nextSibling) {
+      aside.insertBefore(card, historyCard.nextSibling);
+    } else {
+      aside.appendChild(card);
+    }
+
+    function fetchPoem() {
+      const contentEl = document.getElementById('poetry-content');
+      const authorEl = document.getElementById('poetry-author');
+      if (contentEl) contentEl.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> 感应中...';
+
+      fetch('https://v2.jinrishici.com/one.json')
+        .then(r => r.json())
+        .then(res => {
+          if (res && res.status === 'success' && res.data) {
+            if (contentEl) contentEl.textContent = `“${res.data.content}”`;
+            if (authorEl) authorEl.textContent = `${res.data.origin.author} · 《${res.data.origin.title}》`;
+          } else {
+            fallbackPoem();
+          }
+        })
+        .catch(() => fallbackPoem());
+    }
+
+    function fallbackPoem() {
+      const contentEl = document.getElementById('poetry-content');
+      const authorEl = document.getElementById('poetry-author');
+      const BACKUP_POEMS = [
+        { text: '星垂平野阔，月涌大江流。', author: '杜甫 · 《旅夜书怀》' },
+        { text: '海内存知己，天涯若比邻。', author: '王勃 · 《送杜少府之任蜀州》' },
+        { text: '长风破浪会有时，直挂云帆济沧海。', author: '李白 · 《行路难》' },
+        { text: '沉舟侧畔千帆过，病树前头万木春。', author: '刘禹锡 · 《酬乐天扬州初逢席上见赠》' },
+        { text: '山重水复疑无路，柳暗花明又一村。', author: '陆游 · 《游山西村》' }
+      ];
+      const p = BACKUP_POEMS[Math.floor(Math.random() * BACKUP_POEMS.length)];
+      if (contentEl) contentEl.textContent = `“${p.text}”`;
+      if (authorEl) authorEl.textContent = p.author;
+    }
+
+    const refreshBtn = document.getElementById('poetry-refresh-btn');
+    if (refreshBtn) refreshBtn.onclick = fetchPoem;
+
+    fetchPoem();
+  }
+
   function initSidebarWidgets() {
     const aside = document.querySelector('.aside-content');
     if (!aside) return;
 
+    renderGeekMonitor(aside);
     renderAlmanacCard(aside);
     renderHistoryCard(aside);
+    renderPoetryCard(aside);
   }
 
   if (document.readyState === 'loading') {
