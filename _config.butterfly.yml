@@ -313,7 +313,7 @@ aside:
       link: https://github.com/Trouvaille-2
   card_announcement:
     enable: true
-    content: <center><b>我的联系方式<br><b>--- QQ:2015452145 ---<br><b>--- 电话：13247442668 ---<br><b>--- 邮箱 ---<br><b>2015452145@qq.com<br><b>mfh2015452145@gmail.com<br></center>
+    content: <center><b>我的联系方式<br><b>--- QQ:2015452145 ---<br><b>--- 电话：13247442668 ---<br><b>--- 邮箱 ---<br><b>2015452145@qq.com<br><b>mfh2015452145@gmail.com</b><br><hr style="margin:8px 0;border:0;border-top:1px dashed rgba(255,117,140,0.3);"><a href="/movies/" style="display:inline-block;padding:3px 14px;background:linear-gradient(135deg,#ff758c,#ff7eb3);color:#fff;border-radius:15px;font-size:0.8rem;font-weight:bold;text-decoration:none;"><i class="fas fa-film"></i> 🎬 光影放映室入口</a></center>
   card_recent_post:
     enable: true
     # If set 0 will show all

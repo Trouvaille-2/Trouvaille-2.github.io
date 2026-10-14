@@ -86,11 +86,52 @@
   }
 
   /* ========================================================
+   * 3. 首页放映厅直达推荐横幅 (Movie Showcase Banner)
+   * ======================================================== */
+  function initHomeMovieBanner() {
+    const path = window.location.pathname;
+    const isHome = path === '/' || path === '/index.html' || /^\/page\/\d+\/?$/.test(path);
+    if (!isHome) return;
+
+    if (document.getElementById('home-movie-banner')) return;
+
+    const recentPosts = document.getElementById('recent-posts');
+    if (!recentPosts) return;
+
+    const banner = document.createElement('div');
+    banner.id = 'home-movie-banner';
+    banner.className = 'home-movie-banner';
+    banner.innerHTML = `
+      <div class="movie-banner-inner">
+        <div class="movie-banner-left">
+          <span class="movie-banner-badge"><i class="fas fa-sparkles"></i> 专栏推荐</span>
+          <div class="movie-banner-title">🎬 光影放映室 · 私人影单与追番墙</div>
+          <div class="movie-banner-desc">蓦然回首 / 秒速五厘米 / HELLO WORLD / 夏日幻魂 / 横道世之介 / 进击的巨人 ——“用别人的故事，过梦寐以求的人生”</div>
+        </div>
+        <div class="movie-banner-right">
+          <span class="movie-banner-btn">进入放映厅 <i class="fas fa-arrow-right"></i></span>
+        </div>
+      </div>
+    `;
+
+    banner.onclick = function () {
+      if (typeof pjax !== 'undefined' && pjax.loadUrl) {
+        pjax.loadUrl('/movies/');
+      } else {
+        window.location.href = '/movies/';
+      }
+    };
+
+    recentPosts.prepend(banner);
+  }
+
+  /* ========================================================
    * 生命周期调度（首屏 + Pjax 路由切换）
    * ======================================================== */
   function initAll() {
     initReadingProgress();
     initWallpaperSwitcher();
+    initHomeMovieBanner();
   }
 
   if (document.readyState === 'loading') {

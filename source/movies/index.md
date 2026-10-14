@@ -14,105 +14,105 @@ top_img: /img/miao5.webp
 
 <div class="movie-grid">
 
-  <!-- 1. 赛博朋克：边缘行者 -->
+  <!-- 1. 蓦然回首 -->
   <div class="movie-card">
     <div class="movie-cover-wrap">
-      <img class="movie-cover-img" src="https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=600&auto=format&fit=crop" alt="赛博朋克：边缘行者" loading="lazy" />
-      <span class="movie-score-badge">🌟 9.5</span>
-    </div>
-    <div class="movie-info-wrap">
-      <div class="movie-title">赛博朋克：边缘行者</div>
-      <div class="movie-tags-list">
-        <span class="movie-tag-item">赛博朋克</span>
-        <span class="movie-tag-item">扳机社</span>
-        <span class="movie-tag-item">神作二刷</span>
-      </div>
-      <div class="movie-comment">“飞向月球的执念，与夜之城无休止的霓虹与悲歌。”</div>
-    </div>
-  </div>
-
-  <!-- 2. 星际穿越 -->
-  <div class="movie-card">
-    <div class="movie-cover-wrap">
-      <img class="movie-cover-img" src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=600&auto=format&fit=crop" alt="星际穿越" loading="lazy" />
-      <span class="movie-score-badge">🌟 9.4</span>
-    </div>
-    <div class="movie-info-wrap">
-      <div class="movie-title">星际穿越 (Interstellar)</div>
-      <div class="movie-tags-list">
-        <span class="movie-tag-item">硬核科幻</span>
-        <span class="movie-tag-item">诺兰</span>
-        <span class="movie-tag-item">时空引力</span>
-      </div>
-      <div class="movie-comment">“爱不是人类发明的东西，它一直存在，超越了维度和时空。”</div>
-    </div>
-  </div>
-
-  <!-- 3. 黑客帝国 -->
-  <div class="movie-card">
-    <div class="movie-cover-wrap">
-      <img class="movie-cover-img" src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=600&auto=format&fit=crop" alt="黑客帝国" loading="lazy" />
-      <span class="movie-score-badge">🌟 9.1</span>
-    </div>
-    <div class="movie-info-wrap">
-      <div class="movie-title">黑客帝国 (The Matrix)</div>
-      <div class="movie-tags-list">
-        <span class="movie-tag-item">计算机哲学</span>
-        <span class="movie-tag-item">虚拟现实</span>
-        <span class="movie-tag-item">红色药丸</span>
-      </div>
-      <div class="movie-comment">“Welcome to the real world. 计算机与真实世界最深刻的隐喻。”</div>
-    </div>
-  </div>
-
-  <!-- 4. EVA 终 -->
-  <div class="movie-card">
-    <div class="movie-cover-wrap">
-      <img class="movie-cover-img" src="https://images.unsplash.com/photo-1578632767115-351597cf2477?q=80&w=600&auto=format&fit=crop" alt="新世纪福音战士：终" loading="lazy" />
+      <img class="movie-cover-img" src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?q=80&w=800&auto=format&fit=crop" alt="蓦然回首" loading="lazy" />
       <span class="movie-score-badge">🌟 9.3</span>
     </div>
     <div class="movie-info-wrap">
-      <div class="movie-title">新世纪福音战士：终</div>
+      <div class="movie-title">蓦然回首 (Look Back)</div>
       <div class="movie-tags-list">
-        <span class="movie-tag-item">意识流</span>
-        <span class="movie-tag-item">庵野秀明</span>
-        <span class="movie-tag-item">青春谢幕</span>
+        <span class="movie-tag-item">藤本树</span>
+        <span class="movie-tag-item">青春救赎</span>
+        <span class="movie-tag-item">漫画人生</span>
       </div>
-      <div class="movie-comment">“再见了，所有的福音战士。与自己的童年和不甘彻底和解。”</div>
+      <div class="movie-comment">“只要你还在画，我就会一直看下去。走出房门，去画吧。”</div>
     </div>
   </div>
 
-  <!-- 5. 流浪地球 2 -->
+  <!-- 2. 秒速五厘米 -->
   <div class="movie-card">
     <div class="movie-cover-wrap">
-      <img class="movie-cover-img" src="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?q=80&w=600&auto=format&fit=crop" alt="流浪地球 2" loading="lazy" />
-      <span class="movie-score-badge">🌟 9.2</span>
+      <img class="movie-cover-img" src="https://images.unsplash.com/photo-1522383225653-ed111181a951?q=80&w=800&auto=format&fit=crop" alt="秒速五厘米" loading="lazy" />
+      <span class="movie-score-badge">🌟 8.6</span>
     </div>
     <div class="movie-info-wrap">
-      <div class="movie-title">流浪地球 2</div>
+      <div class="movie-title">秒速五厘米</div>
       <div class="movie-tags-list">
-        <span class="movie-tag-item">重工业科幻</span>
-        <span class="movie-tag-item">550W量子计算</span>
-        <span class="movie-tag-item">人类赞歌</span>
+        <span class="movie-tag-item">新海诚</span>
+        <span class="movie-tag-item">樱花与雪</span>
+        <span class="movie-tag-item">错过与释怀</span>
       </div>
-      <div class="movie-comment">“没有人的文明，毫无意义。中国重工业与工程师体系的极致浪漫。”</div>
+      <div class="movie-comment">“如果，樱花掉落的速度是每秒五厘米，那么两颗心需要多久，才能靠近？”</div>
     </div>
   </div>
 
-  <!-- 6. 攻壳机动队 -->
+  <!-- 3. HELLO WORLD -->
   <div class="movie-card">
     <div class="movie-cover-wrap">
-      <img class="movie-cover-img" src="https://images.unsplash.com/photo-1508739773434-c26b3d09e071?q=80&w=600&auto=format&fit=crop" alt="攻壳机动队" loading="lazy" />
-      <span class="movie-score-badge">🌟 9.1</span>
+      <img class="movie-cover-img" src="https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=800&auto=format&fit=crop" alt="HELLO WORLD" loading="lazy" />
+      <span class="movie-score-badge">🌟 8.1</span>
     </div>
     <div class="movie-info-wrap">
-      <div class="movie-title">攻壳机动队 (Ghost in the Shell)</div>
+      <div class="movie-title">HELLO WORLD (你好世界)</div>
       <div class="movie-tags-list">
-        <span class="movie-tag-item">AI意识</span>
-        <span class="movie-tag-item">赛博先驱</span>
-        <span class="movie-tag-item">义体与灵魂</span>
+        <span class="movie-tag-item">伊藤智彦</span>
+        <span class="movie-tag-item">量子纠缠</span>
+        <span class="movie-tag-item">即使世界毁灭</span>
       </div>
-      <div class="movie-comment">“网络是广阔无垠的，当机器诞生了自我意识与幽灵。”</div>
+      <div class="movie-comment">“即使这个世界彻底崩坏毁灭，我也一定要跨越时空再次握住你的手。”</div>
+    </div>
+  </div>
+
+  <!-- 4. 夏日幻魂 -->
+  <div class="movie-card">
+    <div class="movie-cover-wrap">
+      <img class="movie-cover-img" src="https://images.unsplash.com/photo-1514565131-fce0801e5785?q=80&w=800&auto=format&fit=crop" alt="夏日幻魂" loading="lazy" />
+      <span class="movie-score-badge">🌟 8.4</span>
+    </div>
+    <div class="movie-info-wrap">
+      <div class="movie-title">夏日幻魂 (Summer Ghost)</div>
+      <div class="movie-tags-list">
+        <span class="movie-tag-item">loundraw</span>
+        <span class="movie-tag-item">夏夜花火</span>
+        <span class="movie-tag-item">灵魂共鸣</span>
+      </div>
+      <div class="movie-comment">“哪怕烟火只有一瞬的光芒，只要真真切切地活过，夜空就不会一片荒芜。”</div>
+    </div>
+  </div>
+
+  <!-- 5. 横道世之介 -->
+  <div class="movie-card">
+    <div class="movie-cover-wrap">
+      <img class="movie-cover-img" src="https://images.unsplash.com/photo-1476820865390-c52aeebb9891?q=80&w=800&auto=format&fit=crop" alt="横道世之介" loading="lazy" />
+      <span class="movie-score-badge">🌟 8.8</span>
+    </div>
+    <div class="movie-info-wrap">
+      <div class="movie-title">横道世之介 (A Story of Yonosuke)</div>
+      <div class="movie-tags-list">
+        <span class="movie-tag-item">冲田修一</span>
+        <span class="movie-tag-item">高良健吾</span>
+        <span class="movie-tag-item">纯真与温柔</span>
+      </div>
+      <div class="movie-comment">“现在想想，光是曾经认识世之介，就觉得自己是个极其幸运的人了。”</div>
+    </div>
+  </div>
+
+  <!-- 6. 进击的巨人 -->
+  <div class="movie-card">
+    <div class="movie-cover-wrap">
+      <img class="movie-cover-img" src="https://images.unsplash.com/photo-1578632767115-351597cf2477?q=80&w=800&auto=format&fit=crop" alt="进击的巨人" loading="lazy" />
+      <span class="movie-score-badge">🌟 9.8</span>
+    </div>
+    <div class="movie-info-wrap">
+      <div class="movie-title">进击的巨人 (Attack on Titan)</div>
+      <div class="movie-tags-list">
+        <span class="movie-tag-item">谏山创</span>
+        <span class="movie-tag-item">自由之翼</span>
+        <span class="movie-tag-item">献出心脏</span>
+      </div>
+      <div class="movie-comment">“这世界虽然无比残酷，却又如此美丽。去战斗吧，唯有前进，才是唯一的出路！”</div>
     </div>
   </div>
 
