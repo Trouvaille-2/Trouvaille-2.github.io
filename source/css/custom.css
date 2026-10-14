@@ -463,3 +463,208 @@ body {
 #article-container table tr:hover td {
   background: rgba(73, 177, 245, 0.08) !important;
 }
+
+/* ========================================================
+   方向二：页面动效与交互细节 (Interactive & Motion)
+   ======================================================== */
+
+/* 1. 首页文章卡片 hover 平滑上浮 + 柔和光晕 */
+#recent-posts > .recent-post-item {
+  transition: transform 0.35s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.35s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+}
+#recent-posts > .recent-post-item:hover {
+  transform: translateY(-6px) !important;
+}
+[data-theme="light"] #recent-posts > .recent-post-item:hover {
+  box-shadow: 0 16px 36px rgba(73, 177, 245, 0.15) !important;
+}
+[data-theme="dark"] #recent-posts > .recent-post-item:hover {
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.55), 0 0 15px rgba(98, 193, 255, 0.12) !important;
+}
+
+/* 2. 侧边栏卡片 hover 平滑上浮 */
+#aside-content .card-widget {
+  transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+}
+#aside-content .card-widget:hover {
+  transform: translateY(-4px) !important;
+}
+[data-theme="light"] #aside-content .card-widget:hover {
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.09) !important;
+}
+[data-theme="dark"] #aside-content .card-widget:hover {
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.45) !important;
+}
+
+/* 3. 文章封面图微缩放动效 (Slow Zoom) */
+.recent-post-item .post_cover {
+  overflow: hidden !important;
+  border-radius: 12px !important;
+}
+.recent-post-item .post_cover img.post_bg {
+  transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+}
+.recent-post-item:hover .post_cover img.post_bg {
+  transform: scale(1.06) !important;
+}
+
+/* 4. 顶部导航栏菜单项划入下划线特效 */
+#nav .menus_items .menus_item > a {
+  position: relative;
+  transition: color 0.3s ease;
+}
+#nav .menus_items .menus_item > a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  width: 0;
+  height: 2.5px;
+  background: linear-gradient(90deg, #49b1f5, #b58eb8);
+  border-radius: 2px;
+  transition: width 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), left 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+#nav .menus_items .menus_item > a:hover::after {
+  width: 100%;
+  left: 0;
+}
+
+/* 5. 首页向下滚动小箭头跳动动效强化 */
+#scroll-down .scroll-down-effects {
+  animation: scroll-down-bounce 2s infinite cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+  color: #fff;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+}
+@keyframes scroll-down-bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+    opacity: 0.85;
+  }
+  40% {
+    transform: translateY(-12px);
+    opacity: 1;
+  }
+  60% {
+    transform: translateY(-6px);
+    opacity: 0.95;
+  }
+}
+
+/* 6. 标签与分类药丸按钮微悬浮提亮 */
+#aside-content .card-tag-cloud a {
+  transition: all 0.25s ease !important;
+}
+#aside-content .card-tag-cloud a:hover {
+  transform: translateY(-2px) scale(1.05) !important;
+  box-shadow: 0 4px 12px rgba(73, 177, 245, 0.25) !important;
+}
+.article-sort-item {
+  transition: transform 0.25s ease !important;
+}
+.article-sort-item:hover {
+  transform: translateX(6px) !important;
+}
+
+/* ========================================================
+   方向三：侧边栏与个人名片增强 (Profile & Sidebar Badges)
+   ======================================================== */
+
+/* 1. 头像微旋转与发光边框 */
+.card-info .avatar-img {
+  position: relative !important;
+  display: inline-block !important;
+  border-radius: 50% !important;
+  padding: 3px !important;
+  background: linear-gradient(135deg, #49b1f5, #a29bfe) !important;
+  box-shadow: 0 4px 18px rgba(73, 177, 245, 0.28) !important;
+  transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+}
+.card-info .avatar-img:hover {
+  transform: rotate(360deg) scale(1.06) !important;
+}
+
+/* 头像右下角呼吸绿点 (在线/极客状态) */
+.card-info .avatar-img::after {
+  content: '';
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  width: 13px;
+  height: 13px;
+  background: #2ecc71;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #2ecc71;
+  animation: status-pulse 2s infinite ease-in-out;
+  z-index: 2;
+}
+[data-theme="dark"] .card-info .avatar-img::after {
+  border-color: #1f1f1f;
+}
+@keyframes status-pulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.7);
+  }
+  50% {
+    transform: scale(1.15);
+    box-shadow: 0 0 0 5px rgba(46, 204, 113, 0);
+  }
+}
+
+/* 2. Follow Me 渐变药丸按钮 */
+#card-info-btn {
+  background: linear-gradient(135deg, #49b1f5 0%, #a29bfe 100%) !important;
+  border-radius: 20px !important;
+  color: #fff !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.5px !important;
+  box-shadow: 0 4px 15px rgba(73, 177, 245, 0.28) !important;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+  margin-top: 10px;
+}
+#card-info-btn:hover {
+  transform: translateY(-2px) scale(1.03) !important;
+  box-shadow: 0 6px 20px rgba(162, 155, 254, 0.45) !important;
+}
+
+/* 3. 博主描述排版微调 */
+.author-info-description {
+  font-size: 0.85rem !important;
+  line-height: 1.65 !important;
+  color: var(--font-color);
+  opacity: 0.85;
+  margin: 6px 0 10px 0;
+}
+
+/* 4. 公告与联系方式卡片美化 */
+.card-announcement .announcement_content {
+  background: rgba(73, 177, 245, 0.05);
+  border-radius: 12px;
+  padding: 12px 14px;
+  border: 1px dashed rgba(73, 177, 245, 0.28);
+  font-size: 0.86rem;
+  line-height: 1.7;
+}
+[data-theme="dark"] .card-announcement .announcement_content {
+  background: rgba(73, 177, 245, 0.08);
+  border-color: rgba(98, 193, 255, 0.2);
+}
+
+/* 5. 底部徽章胶囊整齐弹性排版 */
+#footer-wrap p {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 6px !important;
+  margin-top: 8px !important;
+}
+#footer-wrap p img {
+  border-radius: 4px;
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+#footer-wrap p img:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.1);
+}

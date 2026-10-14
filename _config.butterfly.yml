@@ -306,12 +306,12 @@ aside:
     category: true
   card_author:
     enable: true
-    description:
+    description: 嵌入式开发 / 408 / C++<br>「我知这世界本如朝露般短暂」
     button:
       enable: true
       icon: fab fa-github
       text: Follow Me
-      link: https://github.com/xxxxxx
+      link: https://github.com/Trouvaille-2
   card_announcement:
     enable: true
     content: <center><b>我的联系方式<br><b>--- QQ:2015452145 ---<br><b>--- 电话：13247442668 ---<br><b>--- 邮箱 ---<br><b>2015452145@qq.com<br><b>mfh2015452145@gmail.com<br></center>
@@ -1063,6 +1063,7 @@ inject:
       - <canvas id="universe"></canvas>
       - <script defer src="/js/universe.js"></script>
       - <script defer src="/js/cursor.js"></script>
+      - <script defer src="/js/click-heart.js"></script>
       - <script defer type="text/javascript" src="https://cdn.jsdelivr.net/npm/sweetalert2@8.19.0/dist/sweetalert2.all.js"></script> # 节日弹窗依赖
       - <script defer data-pjax src="/js/lunar.js"></script> # 农历计算
       - <script defer data-pjax src="/js/day.js"></script> # 节日弹窗
