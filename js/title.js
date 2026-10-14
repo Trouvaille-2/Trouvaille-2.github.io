@@ -1,17 +1,15 @@
-//动态标题
-var OriginTitile = document.title;
+// 动态标题（兼容 PJAX 切页）
+var OriginTitle = document.title;
 var titleTime;
 document.addEventListener('visibilitychange', function () {
   if (document.hidden) {
-    //离开当前页面时标签显示内容
+    OriginTitle = document.title;
     document.title = '👀又去哪儿了~';
     clearTimeout(titleTime);
   } else {
-    //返回当前页面时标签显示内容
     document.title = '🐖找到你了～';
-    //两秒后变回正常标题
     titleTime = setTimeout(function () {
-      document.title = OriginTitile;
+      document.title = OriginTitle;
     }, 2000);
   }
 });

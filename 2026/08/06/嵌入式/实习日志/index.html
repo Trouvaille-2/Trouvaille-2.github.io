@@ -1,0 +1,486 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>实习日志 | 一只特立独行的猪</title><meta name="author" content="trouvaille"><meta name="copyright" content="trouvaille"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="var meting_api&#x3D;&#39;https:&#x2F;&#x2F;api.injahow.cn&#x2F;meting&#x2F;?server&#x3D;:server&amp;type&#x3D;:type&amp;id&#x3D;:id&amp;auth&#x3D;:auth&amp;r&#x3D;:r?server&#x3D;:server&amp;type&#x3D;:type&amp;id&#x3D;:id&amp;r&#x3D;:r&#39;2026&#x2F;8&#x2F;6 实习第一天工作内容拉取项目代码 配置环境 快速阅读项目各文件内容 安装stm32f4MDK 重">
+<meta property="og:type" content="article">
+<meta property="og:title" content="实习日志">
+<meta property="og:url" content="https://fanhua-meng.love/2026/08/06/%E5%B5%8C%E5%85%A5%E5%BC%8F/%E5%AE%9E%E4%B9%A0%E6%97%A5%E5%BF%97/index.html">
+<meta property="og:site_name" content="一只特立独行的猪">
+<meta property="og:description" content="var meting_api&#x3D;&#39;https:&#x2F;&#x2F;api.injahow.cn&#x2F;meting&#x2F;?server&#x3D;:server&amp;type&#x3D;:type&amp;id&#x3D;:id&amp;auth&#x3D;:auth&amp;r&#x3D;:r?server&#x3D;:server&amp;type&#x3D;:type&amp;id&#x3D;:id&amp;r&#x3D;:r&#39;2026&#x2F;8&#x2F;6 实习第一天工作内容拉取项目代码 配置环境 快速阅读项目各文件内容 安装stm32f4MDK 重">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://fanhua-meng.love/img/fengmian/R-C%20(2).webp">
+<meta property="article:published_time" content="2026-08-06T04:39:50.000Z">
+<meta property="article:modified_time" content="2026-10-06T08:08:49.973Z">
+<meta property="article:author" content="trouvaille">
+<meta property="article:tag" content="嵌入式">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://fanhua-meng.love/img/fengmian/R-C%20(2).webp"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "实习日志",
+  "url": "https://fanhua-meng.love/2026/08/06/%E5%B5%8C%E5%85%A5%E5%BC%8F/%E5%AE%9E%E4%B9%A0%E6%97%A5%E5%BF%97/",
+  "image": "https://fanhua-meng.love/img/fengmian/R-C%20(2).webp",
+  "datePublished": "2026-08-06T04:39:50.000Z",
+  "dateModified": "2026-10-06T08:08:49.973Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "trouvaille",
+      "url": "https://fanhua-meng.love"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/muranhuishou.webp"><link rel="canonical" href="https://fanhua-meng.love/2026/08/06/%E5%B5%8C%E5%85%A5%E5%BC%8F/%E5%AE%9E%E4%B9%A0%E6%97%A5%E5%BF%97/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        const data = { value }
+
+        if (ttl != null) {
+          data.expiry = Date.now() + ttl * 86400000
+        }
+
+        localStorage.setItem(key, JSON.stringify(data))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return
+
+        try {
+          const data = JSON.parse(itemStr)
+
+          if (data.expiry && Date.now() > data.expiry) {
+            localStorage.removeItem(key)
+            return
+          }
+
+          return data.value
+        } catch {
+          localStorage.removeItem(key)
+        }
+      }
+    }
+
+    const scriptCache = new Map()
+    const cssCache = new Map()
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => {
+        if (scriptCache.has(url)) {
+          return scriptCache.get(url)
+        }
+
+        const promise = new Promise((resolve, reject) => {
+          const script = document.createElement('script')
+
+          script.src = url
+          script.async = true
+
+          for (const key in attr) {
+            script.setAttribute(key, attr[key])
+          }
+
+          script.onload = resolve
+          script.onerror = reject
+
+          document.head.appendChild(script)
+        })
+
+        scriptCache.set(url, promise)
+
+        return promise
+      },
+      getCSS: (url, id) => {
+        if (cssCache.has(url)) {
+          return cssCache.get(url)
+        }
+
+        const promise = new Promise((resolve, reject) => {
+          const link = document.createElement('link')
+
+          link.rel = 'stylesheet'
+          link.href = url
+
+          if (id) {
+            link.id = id
+          }
+
+          link.onload = resolve
+          link.onerror = reject
+
+          document.head.appendChild(link)
+        })
+
+        cssCache.set(url, promise)
+
+        return promise
+      },
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const metaThemeColor = document.querySelector('meta[name="theme-color"]')
+      const activateDarkMode = () => {
+        document.documentElement.dataset.theme = 'dark'
+        if (metaThemeColor !== null) {
+          metaThemeColor.setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.dataset.theme = 'light'
+        if (metaThemeColor !== null) {
+          metaThemeColor.setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          const hour = new Date().getHours()
+          const start = 6
+          const end = 18
+          const isNight =
+            start < end
+                ? hour < start || hour >= end
+                : hour >= start || hour < end
+          if (theme === undefined) isNight ? activateDarkMode() : activateLightMode()
+          else theme === 'light' ? activateLightMode() : activateDarkMode()
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":230,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '实习日志',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/custom.css" media="print" onload="this.media='all'"><script>var meting_api="https://api.injahow.cn/meting/?server=:server&type=:type&id=:id&auth=:auth&r=:r";</script><!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-butterfly-categories-card/lib/categorybar.css"><link rel="stylesheet" href="https://cdn.cbd.int/hexo-butterfly-clock-anzhiyu/lib/clock.min.css" /><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><script src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.2"></head><body><script>window.paceOptions = {
+  restartOnPushState: false
+}
+
+btf.addGlobalFn('pjaxSend', () => {
+  Pace.restart()
+}, 'pace_restart')
+
+</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js/themes/blue/pace-theme-minimal.min.css"/><script src="https://cdn.jsdelivr.net/npm/pace-js/pace.min.js"></script><div class="bg-animation" id="web_bg" style="background-image: url(/img/miao5.webp);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/muranhuishou.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">22</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">13</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐馆</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/fengmian/R-C%20(2).webp);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">一只特立独行的猪</span></a><a class="nav-page-title" href="/"><span class="site-name">实习日志</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐馆</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">实习日志</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-08-06T04:39:50.000Z" title="发表于 2026-08-06 12:39:50">2026-08-06</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-10-06T08:08:49.973Z" title="更新于 2026-10-06 16:08:49">2026-10-06</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F/">嵌入式</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="2026-8-6-实习第一天"><a href="#2026-8-6-实习第一天" class="headerlink" title="2026&#x2F;8&#x2F;6 实习第一天"></a>2026&#x2F;8&#x2F;6 实习第一天</h1><h2 id="工作内容"><a href="#工作内容" class="headerlink" title="工作内容"></a>工作内容</h2><p>拉取项目代码</p>
+<p>配置环境</p>
+<p>快速阅读项目各文件内容</p>
+<p>安装stm32f4MDK</p>
+<p>重构上位机代码，代码逻辑四条路线</p>
+<h3 id="venv"><a href="#venv" class="headerlink" title=".venv"></a>.venv</h3><p>虚拟环境（virtual environment）&#x3D; 项目专属的、独立的 Python 运行空间。</p>
+<p>它本质是一个副本：复制了一份 Python 解释器，再给你一个独立的”装包仓库”（Lib\site-packages），你在这个环境里 pip install 的包只会装到项目里，不影响系统全局。</p>
+<h3 id="第一条路线（连接下位机，获取数据）"><a href="#第一条路线（连接下位机，获取数据）" class="headerlink" title="第一条路线（连接下位机，获取数据）"></a>第一条路线（连接下位机，获取数据）</h3><p>1.扫描电脑上的串口（com口，波特率）</p>
+<p>扫描串口代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> serial.tools.list_ports  <span class="comment">#serial是第三方库pyserial，专门用来做串口通信的</span></span><br><span class="line"></span><br><span class="line">ports = serial.tools.list_ports.comports()</span><br><span class="line"><span class="keyword">for</span> p <span class="keyword">in</span> ports:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;<span class="subst">&#123;p.device:8s&#125;</span> <span class="subst">&#123;p.description&#125;</span>&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;\n共找到 <span class="subst">&#123;<span class="built_in">len</span>(ports)&#125;</span> 个串口&quot;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>2.Modbus帧</p>
+<h3 id="crc校验"><a href="#crc校验" class="headerlink" title="crc校验"></a>crc校验</h3><p>串口通信在物理线路上传输时，会有噪声干扰、波特率偏差、线路接触不良等问题，导致某些字节在传输中变错。比如 下位机 回你 0x066B，线路一抖变成 0x066F，上位机根本不知道。</p>
+<p>CRC（循环冗余校验）解决这个问题，思路很简单，像行李标签：</p>
+<p>发送方：对帧内容算出一个 16 位的”指纹”（CRC 值），贴在帧末尾一起发出去<br>接收方：收到后对帧内容重新算一遍指纹，跟收到的指纹对比<br>一样 → 数据没问题，放心用<br>不一样 → 数据在传输中坏了，丢弃这帧<br>Modbus RTU 协议强制要求每帧都带 CRC16</p>
+<p>Modbus代码示例，包括crc校验，读数据请求帧，读数据返回帧</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">modbus_frame.py — Modbus RTU 帧构建与解析（链路①第2步）</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">本模块只负责&quot;打包/拆包&quot;，不负责收发。</span></span><br><span class="line"><span class="string">收发（串口）在后面的步骤再做。</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">帧格式速查（RTU 模式）:</span></span><br><span class="line"><span class="string">  读请求: [从机地址1B][功能码1B][起始寄存器2B][数量2B][CRC16 2B]</span></span><br><span class="line"><span class="string">  读响应: [从机地址1B][功能码1B][字节数1B][数据N×2B][CRC16 2B]</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">crc16_modbus</span>(<span class="params">data: <span class="built_in">bytes</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">    <span class="string">&quot;&quot;&quot;计算 Modbus CRC16 校验值</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    规则: 初始值 0xFFFF, 多项式 0xA001, 逐字节异或后按位右移</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    crc = <span class="number">0xFFFF</span></span><br><span class="line">    <span class="keyword">for</span> byte <span class="keyword">in</span> data:</span><br><span class="line">        crc ^= byte</span><br><span class="line">        <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">8</span>):</span><br><span class="line">            <span class="keyword">if</span> crc &amp; <span class="number">0x0001</span>:</span><br><span class="line">                crc = (crc &gt;&gt; <span class="number">1</span>) ^ <span class="number">0xA001</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                crc &gt;&gt;= <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> crc</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">build_read_frame</span>(<span class="params">slave: <span class="built_in">int</span>, start_reg: <span class="built_in">int</span>, count: <span class="built_in">int</span></span>) -&gt; <span class="built_in">bytes</span>:</span><br><span class="line">    <span class="string">&quot;&quot;&quot;组装&quot;读保持寄存器&quot;请求帧（功能码 0x03）</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    参数:</span></span><br><span class="line"><span class="string">        slave:     从机地址（EPC100 用 1）</span></span><br><span class="line"><span class="string">        start_reg: 起始寄存器号（如 37 = 设定值）</span></span><br><span class="line"><span class="string">        count:     要读几个寄存器（连续读）</span></span><br><span class="line"><span class="string">    返回:</span></span><br><span class="line"><span class="string">        完整的 8 字节请求帧</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="comment"># 1. 从机地址 + 功能码</span></span><br><span class="line">    body = <span class="built_in">bytes</span>([slave, <span class="number">0x03</span>])</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 2. 起始寄存器号 → 2 字节大端（高字节在前，Modbus 规定）</span></span><br><span class="line">    body += start_reg.to_bytes(<span class="number">2</span>, <span class="string">&quot;big&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 3. 数量 → 2 字节大端</span></span><br><span class="line">    body += count.to_bytes(<span class="number">2</span>, <span class="string">&quot;big&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 4. CRC 对前面所有字节计算，2 字节小端附加（低字节在前）</span></span><br><span class="line">    crc = crc16_modbus(body)</span><br><span class="line">    <span class="keyword">return</span> body + crc.to_bytes(<span class="number">2</span>, <span class="string">&quot;little&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">parse_read_response</span>(<span class="params">resp: <span class="built_in">bytes</span>, count: <span class="built_in">int</span></span>) -&gt; <span class="built_in">list</span>:</span><br><span class="line">    <span class="string">&quot;&quot;&quot;解析&quot;读保持寄存器&quot;响应帧，返回寄存器值列表</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    参数:</span></span><br><span class="line"><span class="string">        resp:  下位机回的一整帧字节</span></span><br><span class="line"><span class="string">        count: 我们请求读了几个寄存器（用于校验）</span></span><br><span class="line"><span class="string">    返回:</span></span><br><span class="line"><span class="string">        [reg值1, reg值2, ...]（每值 0~65535）</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="comment"># 1. 长度校验：3固定头 + 数据 + 2CRC</span></span><br><span class="line">    expect_len = <span class="number">3</span> + count * <span class="number">2</span> + <span class="number">2</span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(resp) != expect_len:</span><br><span class="line">        <span class="keyword">raise</span> ValueError(<span class="string">f&quot;响应长度不对: 期望<span class="subst">&#123;expect_len&#125;</span>字节, 实际<span class="subst">&#123;<span class="built_in">len</span>(resp)&#125;</span>字节&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 2. 功能码校验（下位机回什么功能码，我们就要什么）</span></span><br><span class="line">    <span class="keyword">if</span> resp[<span class="number">1</span>] != <span class="number">0x03</span>:</span><br><span class="line">        <span class="keyword">raise</span> ValueError(<span class="string">f&quot;功能码异常: 0x<span class="subst">&#123;resp[<span class="number">1</span>]:02X&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 3. 字节数字段校验（第3字节应等于 数量×2）</span></span><br><span class="line">    <span class="keyword">if</span> resp[<span class="number">2</span>] != count * <span class="number">2</span>:</span><br><span class="line">        <span class="keyword">raise</span> ValueError(<span class="string">f&quot;字节数与请求不符: <span class="subst">&#123;resp[<span class="number">2</span>]&#125;</span> != <span class="subst">&#123;count * <span class="number">2</span>&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 4. CRC 校验（收到帧的后2字节 vs 对前段重算）</span></span><br><span class="line">    recv_crc = <span class="built_in">int</span>.from_bytes(resp[-<span class="number">2</span>:], <span class="string">&quot;little&quot;</span>)</span><br><span class="line">    calc_crc = crc16_modbus(resp[:-<span class="number">2</span>])</span><br><span class="line">    <span class="keyword">if</span> recv_crc != calc_crc:</span><br><span class="line">        <span class="keyword">raise</span> ValueError(<span class="string">f&quot;CRC校验失败: 收到<span class="subst">&#123;recv_crc:04X&#125;</span>, 计算<span class="subst">&#123;calc_crc:04X&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 5. 逐个提取寄存器值（每值 2 字节大端）</span></span><br><span class="line">    values = []</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(count):</span><br><span class="line">        seg = resp[<span class="number">3</span> + i * <span class="number">2</span> : <span class="number">3</span> + i * <span class="number">2</span> + <span class="number">2</span>]</span><br><span class="line">        values.append(<span class="built_in">int</span>.from_bytes(seg, <span class="string">&quot;big&quot;</span>))</span><br><span class="line">    <span class="keyword">return</span> values</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    <span class="comment"># ========== 自测 1：用 Modbus 官方标准向量验证 CRC ==========</span></span><br><span class="line">    frame = build_read_frame(<span class="number">1</span>, <span class="number">0</span>, <span class="number">10</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;读请求帧:&quot;</span>, frame.<span class="built_in">hex</span>())</span><br><span class="line">    <span class="keyword">assert</span> frame.<span class="built_in">hex</span>() == <span class="string">&quot;01030000000ac5cd&quot;</span>, <span class="string">&quot;CRC 或字节序有误！&quot;</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;标准向量验证通过 [OK]&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># ========== 自测 2：响应解析 ==========</span></span><br><span class="line">    <span class="comment"># 模拟下位机回：地址1, 功能码3, 4字节, 数据 0x066B=1643, 0x066F=1647</span></span><br><span class="line">    resp = <span class="built_in">bytes</span>([<span class="number">0x01</span>, <span class="number">0x03</span>, <span class="number">0x04</span>, <span class="number">0x06</span>, <span class="number">0x6B</span>, <span class="number">0x06</span>, <span class="number">0x6F</span>])</span><br><span class="line">    resp += crc16_modbus(resp).to_bytes(<span class="number">2</span>, <span class="string">&quot;little&quot;</span>)   <span class="comment"># 补上正确 CRC</span></span><br><span class="line">    values = parse_read_response(resp, <span class="number">2</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;解析出的寄存器值:&quot;</span>, values)</span><br><span class="line">    <span class="keyword">assert</span> values == [<span class="number">1643</span>, <span class="number">1647</span>], <span class="string">&quot;解析结果不对！&quot;</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;响应解析验证通过 [OK]&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>3.读取数据</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">modbus_client.py — 上位机业务层雏形：读写 EPC100 寄存器（链路①第4步）</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">到这里，链路①就通了：</span></span><br><span class="line"><span class="string">    上位机逻辑(本文件) -&gt; 请求帧 -&gt; 模拟下位机 -&gt; 响应帧 -&gt; 上位机解析</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">寄存器约定（和真实项目一致）：</span></span><br><span class="line"><span class="string">    读 reg37 = 设定值 SETPOINT</span></span><br><span class="line"><span class="string">    读 reg44 = 反馈值 FEEDBACK</span></span><br><span class="line"><span class="string">    写 reg35 = 内环 P 增益（x100 存储，写 800 表示 8.00）</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">以后接真实硬件时，本文件只有一处要换：</span></span><br><span class="line"><span class="string">    sim_slave.handle_request(req)  -&gt;  串口发请求、收响应</span></span><br><span class="line"><span class="string">所以这个文件刻意把&quot;业务逻辑&quot;（read_reg/write_reg）和</span></span><br><span class="line"><span class="string">&quot;收发方式&quot;（handle_request）分开，换硬件不动业务。</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> modbus_frame <span class="keyword">import</span> (</span><br><span class="line">    build_read_frame, build_write_frame,</span><br><span class="line">    parse_read_response, parse_write_response,</span><br><span class="line">)</span><br><span class="line"><span class="keyword">import</span> sim_slave</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">read_reg</span>(<span class="params">reg: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">    <span class="string">&quot;&quot;&quot;读单个寄存器：拼请求 -&gt; 交给下位机 -&gt; 解析响应 -&gt; 返回值</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    读 1 个寄存器返回的列表只有一个元素，[0] 把它取出来。</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    req = build_read_frame(<span class="number">1</span>, reg, <span class="number">1</span>)</span><br><span class="line">    resp = sim_slave.handle_request(req)</span><br><span class="line">    <span class="keyword">return</span> parse_read_response(resp, <span class="number">1</span>)[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">write_reg</span>(<span class="params">reg: <span class="built_in">int</span>, value: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">    <span class="string">&quot;&quot;&quot;写单个寄存器，三步曲：写 -&gt; 校验回显 -&gt; 回读验证</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    工业惯例：光&quot;写出去&quot;不算数，必须确认下位机真的收下了：</span></span><br><span class="line"><span class="string">    1. 写：发 0x06 请求</span></span><br><span class="line"><span class="string">    2. 校验回显：下位机回的原样帧必须和我们发的一致</span></span><br><span class="line"><span class="string">    3. 回读验证：再读一遍该寄存器，值必须变成新值</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="comment"># 1. 写</span></span><br><span class="line">    req = build_write_frame(<span class="number">1</span>, reg, value)</span><br><span class="line">    resp = sim_slave.handle_request(req)</span><br><span class="line">    resp_reg, resp_val = parse_write_response(resp)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 2. 校验回显</span></span><br><span class="line">    <span class="keyword">if</span> resp_reg != reg <span class="keyword">or</span> resp_val != value:</span><br><span class="line">        <span class="keyword">raise</span> ValueError(<span class="string">f&quot;写入回显不符: 期望reg<span class="subst">&#123;reg&#125;</span>=<span class="subst">&#123;value&#125;</span>, 收到reg<span class="subst">&#123;resp_reg&#125;</span>=<span class="subst">&#123;resp_val&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 3. 回读验证</span></span><br><span class="line">    back = read_reg(reg)</span><br><span class="line">    <span class="keyword">if</span> back != value:</span><br><span class="line">        <span class="keyword">raise</span> ValueError(<span class="string">f&quot;回读验证失败: 期望<span class="subst">&#123;value&#125;</span>, 读到<span class="subst">&#123;back&#125;</span>&quot;</span>)</span><br><span class="line">    <span class="keyword">return</span> back</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    <span class="comment"># ========== 链路①演示：读 -&gt; 写 -&gt; 读 ==========</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 1. 读设定值、反馈值</span></span><br><span class="line">    setpoint = read_reg(<span class="number">37</span>)</span><br><span class="line">    feedback = read_reg(<span class="number">44</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;设定值=<span class="subst">&#123;setpoint&#125;</span>, 反馈值=<span class="subst">&#123;feedback&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 2. 写 reg35（内环P）: 从 5.00 改成 8.00</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;写 reg35: 500 -&gt; 800 ...&quot;</span>)</span><br><span class="line">    verify = write_reg(<span class="number">35</span>, <span class="number">800</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;写入成功, 回读=<span class="subst">&#123;verify&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 3. 再读一遍，确认模拟下位机的寄存器表真的变了</span></span><br><span class="line">    setpoint = read_reg(<span class="number">37</span>)</span><br><span class="line">    p = read_reg(<span class="number">35</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;再读: 设定值=<span class="subst">&#123;setpoint&#125;</span>, 内环P=<span class="subst">&#123;p&#125;</span>&quot;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;链路①打通 [OK]&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="pywebview"><a href="#pywebview" class="headerlink" title="pywebview"></a>pywebview</h3><p>是一个 Python GUI 库它是整个上位机的”窗口外壳”。</p>
+<p>一句话理解<br>用 HTML&#x2F;CSS&#x2F;JS 写界面，用 Python 写逻辑，pywebview 把两者拼成一个桌面应用窗口。</p>
+<p>它做的事：在系统自带浏览器引擎（Windows 上是 EdgeChromium）里开一个窗口，加载你的网页当作应用界面——但比起浏览器，这个窗口是”原生的”，没有地址栏、没有标签页，就是个纯粹的桌面程序。</p>
+<h2 id="工作总结"><a href="#工作总结" class="headerlink" title="工作总结"></a>工作总结</h2><p>今天第一次接触工程级的代码，需要学习的东西很多，路漫漫长修远兮</p>
+<h1 id="2026-8-7-实习第二天"><a href="#2026-8-7-实习第二天" class="headerlink" title="2026&#x2F;8&#x2F;7 实习第二天"></a>2026&#x2F;8&#x2F;7 实习第二天</h1><h2 id="工作内容-1"><a href="#工作内容-1" class="headerlink" title="工作内容"></a>工作内容</h2><p>argparse 是 Python 标准库，专门用来解析命令行参数</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/RudeTomatoes/article/details/117003291">https://blog.csdn.net/RudeTomatoes/article/details/117003291</a></p>
+<p>为了理解项目代码，我敲了一个demo去仿照项目的结构，于是同样也进行了.venv的操作，于是我的编译器就同时存在两个.venv，会出现混用的情况。</p>
+<p>解决方式如下：deactivate   # 退出当前环境</p>
+<p> d:\Desktop\code\xxxx\xxxx.venv\Scripts\Activate.ps1   # 进入另一个</p>
+<p>Python进阶教程丨虚拟环境搭建<a target="_blank" rel="noopener" href="https://blog.csdn.net/w646645452/article/details/146307489?ops_request_misc=elastic_search_misc&request_id=5346641dfcbcc785c4dfa515e7b87ca9&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-146307489-null-null.142%5Ev102%5Epc_search_result_base9&utm_term=python%E5%88%9B%E5%BB%BA%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83&spm=1018.2226.3001.4187">https://blog.csdn.net/w646645452/article/details/146307489?ops_request_misc=elastic_search_misc&amp;request_id=5346641dfcbcc785c4dfa515e7b87ca9&amp;biz_id=0&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-146307489-null-null.142^v102^pc_search_result_base9&amp;utm_term=python%E5%88%9B%E5%BB%BA%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83&amp;spm=1018.2226.3001.4187</a></p>
+<p>logging 是 Python 内置的标准日志记录库，它的核心价值在于：让你能像写日记一样，把程序运行过程中的关键信息（状态、错误、数据）分级保存下来，而不是只用 print() 在控制台刷屏。<a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python-logging.html">https://www.runoob.com/python3/python-logging.html</a></p>
+<p>OTA：Over-the-Air Technology，字面意思理解为：空中下载技术。</p>
+<pre><code>OTA 在线升级：通过OTA的方式实现产品软件更新的一种方式。
+
+https://blog.csdn.net/m0_62140641/article/details/139437894?ops_request_misc=elastic_search_misc&amp;request_id=208e7b731b2df22527a2196e9029eef4&amp;biz_id=0&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-139437894-null-null.142^v102^pc_search_result_base9&amp;utm_term=ota&amp;spm=1018.2226.3001.4187
+</code></pre>
+<p>JSON（JavaScript Object Notation，JavaScript对象表示法） 是一种轻量级的文本数据交换格式。</p>
+<p>它的核心价值在于：用一种既容易被人类阅读和编写，又容易被机器解析和生成的格式，来组织和传输数据。它独立于编程语言，但绝大多数语言都支持它。主要作用：配置文件，前后端通信，API数据交换</p>
+<p>DLL 的全称是 Dynamic Link Library（动态链接库）。一种包含代码和数据的“工具箱”文件，它的核心特点是 “动态” 和 “共享”。</p>
+<p>pyinstall库，是把python变成可执行文件的库</p>
+<p>1.根据个人理解了解modbus rtu结合</p>
+<p>2.分析学习相关的寄存器 通信链路 以及上位机控制（梳理整个上位机的架构）</p>
+<p>3.梳理上位机的设定值来源</p>
+<p>4.主阀类型 设定值 P I D Imax Imin 死区的各自前端对应的变量是什么 后端对应的变量是什么</p>
+<h2 id="工作总结-1"><a href="#工作总结-1" class="headerlink" title="工作总结"></a>工作总结</h2><p>今日梳理上位机项目整体架构，理清前端到设备端的通信链路与各层职责，完成设定值、PID 等九项参数的寄存器映射对照。</p>
+<p>业务层的部分大致都理解，但是涉及到底层，包括服务端执行端ota部分不理解。</p>
+<h1 id="2026-8-8-实习第三天"><a href="#2026-8-8-实习第三天" class="headerlink" title="2026&#x2F;8&#x2F;8 实习第三天"></a>2026&#x2F;8&#x2F;8 实习第三天</h1><h2 id="工作内容-2"><a href="#工作内容-2" class="headerlink" title="工作内容"></a>工作内容</h2><p>学习了git的创建分支，目前已在分支进行代码修改。</p>
+<p>学习电流环理论</p>
+<p>下午未上班，下午公司团建</p>
+<h2 id="工作总结-2"><a href="#工作总结-2" class="headerlink" title="工作总结"></a>工作总结</h2><p>学习电流环，为以后项目三环控制方向做铺垫。</p>
+<h1 id="2026-8-10-实习第四天"><a href="#2026-8-10-实习第四天" class="headerlink" title="2026&#x2F;8&#x2F;10 实习第四天"></a>2026&#x2F;8&#x2F;10 实习第四天</h1><h2 id="工作内容-3"><a href="#工作内容-3" class="headerlink" title="工作内容"></a>工作内容</h2><p>dll文件 <a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_55621747/article/details/136682284?ops_request_misc=elastic_search_misc&request_id=c49d53bf3f0f96b02a5fc4e897ff5354&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-136682284-null-null.142%5Ev102%5Epc_search_result_base9&utm_term=dll&spm=1018.2226.3001.4187">https://blog.csdn.net/m0_55621747/article/details/136682284?ops_request_misc=elastic_search_misc&amp;request_id=c49d53bf3f0f96b02a5fc4e897ff5354&amp;biz_id=0&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-136682284-null-null.142^v102^pc_search_result_base9&amp;utm_term=dll&amp;spm=1018.2226.3001.4187</a></p>
+<p>今天主要输出了项目中<code>Modbus</code>通信协议与<code>电流环</code>理论梳理文档，整理了上位机前端、服务端、<code>DLL</code>驱动、寄存器表四层架构及全部协议相关文件清单，学习了电流环的限流保护、力矩输出及三环串级控制原理。下午深入阅读了上位机前后端代码及下位机固件，对照变量表逐寄存器核对了178个变量的跨层映射关系。</p>
+<h2 id="工作总结-3"><a href="#工作总结-3" class="headerlink" title="工作总结"></a>工作总结</h2><p>还是在梳理上位机与下位机的通信链路，今天简单调试了ui，对前端部分加深了理解。至少对链路有了基本的概念，但是具体的业务还是不会，我认为应该要在业务中学习，才能更进一步学习上位机。</p>
+<p>关于下位机部分，昨天看了一些关于无刷电机的三环控制的代码，对三环控制有了基本的了解，代码方面也有思路，但是还是一样差实践去加深理解。我渴望参与更多的业务。</p>
+<h1 id="2026-8-11-实习第五天"><a href="#2026-8-11-实习第五天" class="headerlink" title="2026&#x2F;8&#x2F;11 实习第五天"></a>2026&#x2F;8&#x2F;11 实习第五天</h1><h2 id="工作内容-4"><a href="#工作内容-4" class="headerlink" title="工作内容"></a>工作内容</h2><p>今天梳理了前后端的脉络，深入到具体的业务，比如修改一个值，各个文件都是怎么被调动的。</p>
+<h2 id="工作总结-4"><a href="#工作总结-4" class="headerlink" title="工作总结"></a>工作总结</h2><p>感觉上位机脉络什么的已经差不多，明天可以梳理整个下位机的脉络。这样全部脉络都清楚了，就可以进行具体的业务了。</p>
+<h1 id="2026-8-12-实习第六天"><a href="#2026-8-12-实习第六天" class="headerlink" title="2026&#x2F;8&#x2F;12 实习第六天"></a>2026&#x2F;8&#x2F;12 实习第六天</h1><h2 id="工作内容-5"><a href="#工作内容-5" class="headerlink" title="工作内容"></a>工作内容</h2><p>今天开始梳理下位机的脉络，还是从读写寄存器出发，由于下位机直接操作寄存器，所以脉络没那么长，也就是涉及到中断</p>
+<h2 id="工作总结-5"><a href="#工作总结-5" class="headerlink" title="工作总结"></a>工作总结</h2><p>抓紧学习项目</p>
+<h1 id="2026-8-13-实习第七天"><a href="#2026-8-13-实习第七天" class="headerlink" title="2026&#x2F;8&#x2F;13 实习第七天"></a>2026&#x2F;8&#x2F;13 实习第七天</h1><h2 id="工作内容-6"><a href="#工作内容-6" class="headerlink" title="工作内容"></a>工作内容</h2><p>把变量全链路（前端后端下位机寄存器）对应表搞完了，随用随查。</p>
+<h2 id="工作总结-6"><a href="#工作总结-6" class="headerlink" title="工作总结"></a>工作总结</h2><p>迷茫</p>
+<h1 id="2026-8-14-实习第八天"><a href="#2026-8-14-实习第八天" class="headerlink" title="2026&#x2F;8&#x2F;14 实习第八天"></a>2026&#x2F;8&#x2F;14 实习第八天</h1><h2 id="工作内容-7"><a href="#工作内容-7" class="headerlink" title="工作内容"></a>工作内容</h2><p>git rebase 主分支，这个git命令用于分分支与主分支保持统一</p>
+<p>今天上午做k230那个项目，目前已经找好公开数据集开始训练。下午学习下位机，先学pid模块吧，学完在学mcp模块，有余力就去看freertos</p>
+<p>下午硬件到了，凯哥给我搭了一个成品供我测试。然后欣哥安排我修改一个上位机的bug，现已修改。对项目更理解了，要把我寄存器。</p>
+<h2 id="工作总结-7"><a href="#工作总结-7" class="headerlink" title="工作总结"></a>工作总结</h2><p>感觉最近工作量不大，可以准备秋招东西了。</p>
+<h1 id="2026-8-15-实习第九天"><a href="#2026-8-15-实习第九天" class="headerlink" title="2026&#x2F;8&#x2F;15 实习第九天"></a>2026&#x2F;8&#x2F;15 实习第九天</h1><h2 id="工作内容-8"><a href="#工作内容-8" class="headerlink" title="工作内容"></a>工作内容</h2><p>学会了git上的复制粘贴，不同于windos系统的快捷键。</p>
+<p>今天开始接触最新的业务，比例阀，目前正在看代码。</p>
+<p>现在已经把单环的部分看完了看懂了。</p>
+<p>crc校验算法的代码：</p>
+<blockquote>
+<p>1 初始化一个16位的寄存器地址 用作初始值<br>2 遍历数据字节，从最高位到最低位，<br>3 将数据字节与寄存器异或<br>4 对寄存器进行8次迭代，每一次迭代将寄存器右移一位<br>5 如果最低位位1，将寄存器与生成多项式0x8005异或，否则只进行右移操作<br>6 重复上述步骤直到遍历完所有的字节<br>7 最终寄存器的值就是crc16校验码<br>8 crc计算之后高低位进行互换</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">uint16_t</span> <span class="title function_">modbus_crc16</span><span class="params">(<span class="type">const</span> <span class="type">uint8_t</span> *data, <span class="type">size_t</span> length)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">uint16_t</span> crc = <span class="number">0xFFFF</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">size_t</span> i = <span class="number">0</span>; i &lt; length; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        crc ^= data[i];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; <span class="number">8</span>; j++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (crc &amp; <span class="number">0x0001</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                crc &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">                crc ^= <span class="number">0xA001</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                crc &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> crc;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="工作总结-8"><a href="#工作总结-8" class="headerlink" title="工作总结"></a>工作总结</h2><h1 id="2026-8-17-实习第十天"><a href="#2026-8-17-实习第十天" class="headerlink" title="2026&#x2F;8&#x2F;17 实习第十天"></a>2026&#x2F;8&#x2F;17 实习第十天</h1><h2 id="工作内容-9"><a href="#工作内容-9" class="headerlink" title="工作内容"></a>工作内容</h2><p>理清03和06功能码的逻辑</p>
+<p>今天做了pid五区间的上位机部分</p>
+<h2 id="工作总结-9"><a href="#工作总结-9" class="headerlink" title="工作总结"></a>工作总结</h2><p>vibecoding害人不浅，现在负责的业务主要是上位机部分，我是不打算走上位机的，但是现在如果不学点上位机的话，纯vibecoding有点看不懂代码。很纠结该学点什么，感觉如果纯学会用的话，已经学的差不多了，该深入原理部分了。</p>
+<h1 id="2026-8-18-实习第十一天"><a href="#2026-8-18-实习第十一天" class="headerlink" title="2026&#x2F;8&#x2F;18 实习第十一天"></a>2026&#x2F;8&#x2F;18 实习第十一天</h1><h2 id="工作内容-10"><a href="#工作内容-10" class="headerlink" title="工作内容"></a>工作内容</h2><p>通过mcp让opencode测试pid</p>
+<h1 id="2026-8-19-实习第十二天"><a href="#2026-8-19-实习第十二天" class="headerlink" title="2026&#x2F;8&#x2F;19 实习第十二天"></a>2026&#x2F;8&#x2F;19 实习第十二天</h1><h2 id="工作内容-11"><a href="#工作内容-11" class="headerlink" title="工作内容"></a>工作内容</h2><p>通过mcp让opencode测试pid</p>
+<h1 id="2026-8-20-实习第十三天"><a href="#2026-8-20-实习第十三天" class="headerlink" title="2026&#x2F;8&#x2F;20 实习第十三天"></a>2026&#x2F;8&#x2F;20 实习第十三天</h1><h2 id="工作内容-12"><a href="#工作内容-12" class="headerlink" title="工作内容"></a>工作内容</h2><p>手动测pid</p>
+<h1 id="2026-8-21-实习第十四天"><a href="#2026-8-21-实习第十四天" class="headerlink" title="2026&#x2F;8&#x2F;21 实习第十四天"></a>2026&#x2F;8&#x2F;21 实习第十四天</h1><h2 id="工作内容-13"><a href="#工作内容-13" class="headerlink" title="工作内容"></a>工作内容</h2><p>继续调参数</p>
+<h1 id="2026-8-22-实习第十五天"><a href="#2026-8-22-实习第十五天" class="headerlink" title="2026&#x2F;8&#x2F;22 实习第十五天"></a>2026&#x2F;8&#x2F;22 实习第十五天</h1><h2 id="工作内容-14"><a href="#工作内容-14" class="headerlink" title="工作内容"></a>工作内容</h2><p>继续调参数</p>
+<h1 id="2026-8-24-实习第十六天"><a href="#2026-8-24-实习第十六天" class="headerlink" title="2026&#x2F;8&#x2F;24 实习第十六天"></a>2026&#x2F;8&#x2F;24 实习第十六天</h1><h2 id="工作内容-15"><a href="#工作内容-15" class="headerlink" title="工作内容"></a>工作内容</h2><p>调参数</p>
+<h1 id="2026-8-25-实习第十七天"><a href="#2026-8-25-实习第十七天" class="headerlink" title="2026&#x2F;8&#x2F;25 实习第十七天"></a>2026&#x2F;8&#x2F;25 实习第十七天</h1><h2 id="工作内容-16"><a href="#工作内容-16" class="headerlink" title="工作内容"></a>工作内容</h2><p>测了电路板的物理噪声</p>
+<h1 id="2026-8-26-实习第十八天"><a href="#2026-8-26-实习第十八天" class="headerlink" title="2026&#x2F;8&#x2F;26 实习第十八天"></a>2026&#x2F;8&#x2F;26 实习第十八天</h1><h2 id="工作内容-17"><a href="#工作内容-17" class="headerlink" title="工作内容"></a>工作内容</h2><p>测了电路板的物理噪声</p>
+<h1 id="2026-8-27-实习第十九天"><a href="#2026-8-27-实习第十九天" class="headerlink" title="2026&#x2F;8&#x2F;27 实习第十九天"></a>2026&#x2F;8&#x2F;27 实习第十九天</h1><h2 id="工作内容-18"><a href="#工作内容-18" class="headerlink" title="工作内容"></a>工作内容</h2><p>今天上午测了电路板的物理噪声，下午调了五区间的pid参数</p>
+<h1 id="2026-8-28-实习第二十天"><a href="#2026-8-28-实习第二十天" class="headerlink" title="2026&#x2F;8&#x2F;28 实习第二十天"></a>2026&#x2F;8&#x2F;28 实习第二十天</h1><h2 id="工作内容-19"><a href="#工作内容-19" class="headerlink" title="工作内容"></a>工作内容</h2><p>今天在调main分支的pid参数</p>
+<h2 id="工作总结-10"><a href="#工作总结-10" class="headerlink" title="工作总结"></a>工作总结</h2><p>qt基础课程学了一半了，学完课程就可以去做我的小项目的上位机了。</p>
+<h1 id="2026-9-6"><a href="#2026-9-6" class="headerlink" title="2026&#x2F;9&#x2F;6"></a>2026&#x2F;9&#x2F;6</h1><p>辞职</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://fanhua-meng.love">trouvaille</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://fanhua-meng.love/2026/08/06/%E5%B5%8C%E5%85%A5%E5%BC%8F/%E5%AE%9E%E4%B9%A0%E6%97%A5%E5%BF%97/">https://fanhua-meng.love/2026/08/06/%E5%B5%8C%E5%85%A5%E5%BC%8F/%E5%AE%9E%E4%B9%A0%E6%97%A5%E5%BF%97/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://fanhua-meng.love" target="_blank">一只特立独行的猪</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/">嵌入式</a></div><div class="post-share"><div class="social-share" data-image="/img/fengmian/R-C%20(2).webp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related  no-desc" href="/2026/08/06/%E5%B5%8C%E5%85%A5%E5%BC%8F/modbus/" title="modbus"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/fengmian/R-C.webp" onerror="onerror=null;src='/img/404.webp'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">modbus</div></div></div></a><a class="pagination-related  no-desc" href="/2026/08/06/%E5%B8%B8%E7%94%A8%E4%BB%A3%E7%A0%81%E4%BF%9D%E5%AD%98/%E5%B8%B8%E7%94%A8%E4%BB%A3%E7%A0%81%E4%BF%9D%E5%AD%98/" title="常用代码保存"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/light.webp" onerror="onerror=null;src='/img/404.webp'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">常用代码保存</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related no-desc" href="/2026/08/06/%E5%B5%8C%E5%85%A5%E5%BC%8F/modbus/" title="modbus"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/fengmian/R-C.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-08-06</div><div class="info-item-2">modbus</div></div></div></a><a class="pagination-related no-desc" href="/2026/08/04/%E5%B5%8C%E5%85%A5%E5%BC%8F/pid/" title="语法题"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/fengmian/R-C%20(3).webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-08-04</div><div class="info-item-2">语法题</div></div></div></a><a class="pagination-related no-desc" href="/2026/10/06/%E5%B5%8C%E5%85%A5%E5%BC%8F/%E6%8A%80%E6%9C%AF%E6%97%A5%E5%BF%97/" title="技术日志"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/fengmian/R-C%20(3).webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-10-06</div><div class="info-item-2">技术日志</div></div></div></a><a class="pagination-related no-desc" href="/2026/01/06/%E5%B5%8C%E5%85%A5%E5%BC%8F/%E8%AF%AD%E6%B3%95or%E7%AE%97%E6%B3%95%E9%A2%98/" title="语法题"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/miao5.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-01-06</div><div class="info-item-2">语法题</div></div></div></a><a class="pagination-related no-desc" href="/2026/08/06/%E5%B8%B8%E7%94%A8%E4%BB%A3%E7%A0%81%E4%BF%9D%E5%AD%98/%E5%B8%B8%E7%94%A8%E4%BB%A3%E7%A0%81%E4%BF%9D%E5%AD%98/" title="常用代码保存"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/light.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-08-06</div><div class="info-item-2">常用代码保存</div></div></div></a><a class="pagination-related no-desc" href="/2025/12/23/%E5%B5%8C%E5%85%A5%E5%BC%8F/c%E8%AF%AD%E8%A8%80%E8%AF%AD%E6%B3%95/c%E8%AF%AD%E8%A8%80/" title="c语言"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/fengmian/R-C(4).webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-12-23</div><div class="info-item-2">c语言</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/muranhuishou.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">trouvaille</div><div class="author-info-description">嵌入式开发 / 408 / C++<br>「我知这世界本如朝露般短暂」</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">22</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">13</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Trouvaille-2"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/Trouvaille-2" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:mfh2015452145@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content"><center><b>我的联系方式<br><b>--- QQ:2015452145 ---<br><b>--- 电话：13247442668 ---<br><b>--- 邮箱 ---<br><b>2015452145@qq.com<br><b>mfh2015452145@gmail.com<br></center></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#2026-8-6-%E5%AE%9E%E4%B9%A0%E7%AC%AC%E4%B8%80%E5%A4%A9"><span class="toc-number">1.</span> <span class="toc-text">2026&#x2F;8&#x2F;6 实习第一天</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E5%86%85%E5%AE%B9"><span class="toc-number">1.1.</span> <span class="toc-text">工作内容</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#venv"><span class="toc-number">1.1.1.</span> <span class="toc-text">.venv</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E6%9D%A1%E8%B7%AF%E7%BA%BF%EF%BC%88%E8%BF%9E%E6%8E%A5%E4%B8%8B%E4%BD%8D%E6%9C%BA%EF%BC%8C%E8%8E%B7%E5%8F%96%E6%95%B0%E6%8D%AE%EF%BC%89"><span class="toc-number">1.1.2.</span> <span class="toc-text">第一条路线（连接下位机，获取数据）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#crc%E6%A0%A1%E9%AA%8C"><span class="toc-number">1.1.3.</span> <span class="toc-text">crc校验</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pywebview"><span class="toc-number">1.1.4.</span> <span class="toc-text">pywebview</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E6%80%BB%E7%BB%93"><span class="toc-number">1.2.</span> <span class="toc-text">工作总结</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2026-8-7-%E5%AE%9E%E4%B9%A0%E7%AC%AC%E4%BA%8C%E5%A4%A9"><span class="toc-number">2.</span> <span class="toc-text">2026&#x2F;8&#x2F;7 实习第二天</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E5%86%85%E5%AE%B9-1"><span class="toc-number">2.1.</span> <span class="toc-text">工作内容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E6%80%BB%E7%BB%93-1"><span class="toc-number">2.2.</span> <span class="toc-text">工作总结</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2026-8-8-%E5%AE%9E%E4%B9%A0%E7%AC%AC%E4%B8%89%E5%A4%A9"><span class="toc-number">3.</span> <span class="toc-text">2026&#x2F;8&#x2F;8 实习第三天</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E5%86%85%E5%AE%B9-2"><span class="toc-number">3.1.</span> <span class="toc-text">工作内容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E6%80%BB%E7%BB%93-2"><span class="toc-number">3.2.</span> <span class="toc-text">工作总结</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2026-8-10-%E5%AE%9E%E4%B9%A0%E7%AC%AC%E5%9B%9B%E5%A4%A9"><span class="toc-number">4.</span> <span class="toc-text">2026&#x2F;8&#x2F;10 实习第四天</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E5%86%85%E5%AE%B9-3"><span class="toc-number">4.1.</span> <span class="toc-text">工作内容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E6%80%BB%E7%BB%93-3"><span class="toc-number">4.2.</span> <span class="toc-text">工作总结</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2026-8-11-%E5%AE%9E%E4%B9%A0%E7%AC%AC%E4%BA%94%E5%A4%A9"><span class="toc-number">5.</span> <span class="toc-text">2026&#x2F;8&#x2F;11 实习第五天</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E5%86%85%E5%AE%B9-4"><span class="toc-number">5.1.</span> <span class="toc-text">工作内容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E6%80%BB%E7%BB%93-4"><span class="toc-number">5.2.</span> <span class="toc-text">工作总结</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2026-8-12-%E5%AE%9E%E4%B9%A0%E7%AC%AC%E5%85%AD%E5%A4%A9"><span class="toc-number">6.</span> <span class="toc-text">2026&#x2F;8&#x2F;12 实习第六天</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E5%86%85%E5%AE%B9-5"><span class="toc-number">6.1.</span> <span class="toc-text">工作内容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E6%80%BB%E7%BB%93-5"><span class="toc-number">6.2.</span> <span class="toc-text">工作总结</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2026-8-13-%E5%AE%9E%E4%B9%A0%E7%AC%AC%E4%B8%83%E5%A4%A9"><span class="toc-number">7.</span> <span class="toc-text">2026&#x2F;8&#x2F;13 实习第七天</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E5%86%85%E5%AE%B9-6"><span class="toc-number">7.1.</span> <span class="toc-text">工作内容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E6%80%BB%E7%BB%93-6"><span class="toc-number">7.2.</span> <span class="toc-text">工作总结</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2026-8-14-%E5%AE%9E%E4%B9%A0%E7%AC%AC%E5%85%AB%E5%A4%A9"><span class="toc-number">8.</span> <span class="toc-text">2026&#x2F;8&#x2F;14 实习第八天</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E5%86%85%E5%AE%B9-7"><span class="toc-number">8.1.</span> <span class="toc-text">工作内容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E6%80%BB%E7%BB%93-7"><span class="toc-number">8.2.</span> <span class="toc-text">工作总结</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2026-8-15-%E5%AE%9E%E4%B9%A0%E7%AC%AC%E4%B9%9D%E5%A4%A9"><span class="toc-number">9.</span> <span class="toc-text">2026&#x2F;8&#x2F;15 实习第九天</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E5%86%85%E5%AE%B9-8"><span class="toc-number">9.1.</span> <span class="toc-text">工作内容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E6%80%BB%E7%BB%93-8"><span class="toc-number">9.2.</span> <span class="toc-text">工作总结</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2026-8-17-%E5%AE%9E%E4%B9%A0%E7%AC%AC%E5%8D%81%E5%A4%A9"><span class="toc-number">10.</span> <span class="toc-text">2026&#x2F;8&#x2F;17 实习第十天</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E5%86%85%E5%AE%B9-9"><span class="toc-number">10.1.</span> <span class="toc-text">工作内容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E6%80%BB%E7%BB%93-9"><span class="toc-number">10.2.</span> <span class="toc-text">工作总结</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2026-8-18-%E5%AE%9E%E4%B9%A0%E7%AC%AC%E5%8D%81%E4%B8%80%E5%A4%A9"><span class="toc-number">11.</span> <span class="toc-text">2026&#x2F;8&#x2F;18 实习第十一天</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E5%86%85%E5%AE%B9-10"><span class="toc-number">11.1.</span> <span class="toc-text">工作内容</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2026-8-19-%E5%AE%9E%E4%B9%A0%E7%AC%AC%E5%8D%81%E4%BA%8C%E5%A4%A9"><span class="toc-number">12.</span> <span class="toc-text">2026&#x2F;8&#x2F;19 实习第十二天</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E5%86%85%E5%AE%B9-11"><span class="toc-number">12.1.</span> <span class="toc-text">工作内容</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2026-8-20-%E5%AE%9E%E4%B9%A0%E7%AC%AC%E5%8D%81%E4%B8%89%E5%A4%A9"><span class="toc-number">13.</span> <span class="toc-text">2026&#x2F;8&#x2F;20 实习第十三天</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E5%86%85%E5%AE%B9-12"><span class="toc-number">13.1.</span> <span class="toc-text">工作内容</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2026-8-21-%E5%AE%9E%E4%B9%A0%E7%AC%AC%E5%8D%81%E5%9B%9B%E5%A4%A9"><span class="toc-number">14.</span> <span class="toc-text">2026&#x2F;8&#x2F;21 实习第十四天</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E5%86%85%E5%AE%B9-13"><span class="toc-number">14.1.</span> <span class="toc-text">工作内容</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2026-8-22-%E5%AE%9E%E4%B9%A0%E7%AC%AC%E5%8D%81%E4%BA%94%E5%A4%A9"><span class="toc-number">15.</span> <span class="toc-text">2026&#x2F;8&#x2F;22 实习第十五天</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E5%86%85%E5%AE%B9-14"><span class="toc-number">15.1.</span> <span class="toc-text">工作内容</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2026-8-24-%E5%AE%9E%E4%B9%A0%E7%AC%AC%E5%8D%81%E5%85%AD%E5%A4%A9"><span class="toc-number">16.</span> <span class="toc-text">2026&#x2F;8&#x2F;24 实习第十六天</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E5%86%85%E5%AE%B9-15"><span class="toc-number">16.1.</span> <span class="toc-text">工作内容</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2026-8-25-%E5%AE%9E%E4%B9%A0%E7%AC%AC%E5%8D%81%E4%B8%83%E5%A4%A9"><span class="toc-number">17.</span> <span class="toc-text">2026&#x2F;8&#x2F;25 实习第十七天</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E5%86%85%E5%AE%B9-16"><span class="toc-number">17.1.</span> <span class="toc-text">工作内容</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2026-8-26-%E5%AE%9E%E4%B9%A0%E7%AC%AC%E5%8D%81%E5%85%AB%E5%A4%A9"><span class="toc-number">18.</span> <span class="toc-text">2026&#x2F;8&#x2F;26 实习第十八天</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E5%86%85%E5%AE%B9-17"><span class="toc-number">18.1.</span> <span class="toc-text">工作内容</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2026-8-27-%E5%AE%9E%E4%B9%A0%E7%AC%AC%E5%8D%81%E4%B9%9D%E5%A4%A9"><span class="toc-number">19.</span> <span class="toc-text">2026&#x2F;8&#x2F;27 实习第十九天</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E5%86%85%E5%AE%B9-18"><span class="toc-number">19.1.</span> <span class="toc-text">工作内容</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2026-8-28-%E5%AE%9E%E4%B9%A0%E7%AC%AC%E4%BA%8C%E5%8D%81%E5%A4%A9"><span class="toc-number">20.</span> <span class="toc-text">2026&#x2F;8&#x2F;28 实习第二十天</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E5%86%85%E5%AE%B9-19"><span class="toc-number">20.1.</span> <span class="toc-text">工作内容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E6%80%BB%E7%BB%93-10"><span class="toc-number">20.2.</span> <span class="toc-text">工作总结</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2026-9-6"><span class="toc-number">21.</span> <span class="toc-text">2026&#x2F;9&#x2F;6</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/10/06/%E5%B5%8C%E5%85%A5%E5%BC%8F/%E6%8A%80%E6%9C%AF%E6%97%A5%E5%BF%97/" title="技术日志">技术日志</a><time datetime="2026-10-06T09:39:50.000Z" title="发表于 2026-10-06 17:39:50">2026-10-06</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/09/15/%E5%B5%8C%E5%85%A5%E5%BC%8F/%E9%9D%A2%E8%AF%95%E5%85%AB%E8%82%A1/" title="八股文">八股文</a><time datetime="2026-09-15T09:39:50.000Z" title="发表于 2026-09-15 17:39:50">2026-09-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/08/06/%E5%B5%8C%E5%85%A5%E5%BC%8F/modbus/" title="modbus">modbus</a><time datetime="2026-08-06T06:39:50.000Z" title="发表于 2026-08-06 14:39:50">2026-08-06</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/08/06/%E5%B5%8C%E5%85%A5%E5%BC%8F/%E5%AE%9E%E4%B9%A0%E6%97%A5%E5%BF%97/" title="实习日志">实习日志</a><time datetime="2026-08-06T04:39:50.000Z" title="发表于 2026-08-06 12:39:50">2026-08-06</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/08/06/%E5%B8%B8%E7%94%A8%E4%BB%A3%E7%A0%81%E4%BF%9D%E5%AD%98/%E5%B8%B8%E7%94%A8%E4%BB%A3%E7%A0%81%E4%BF%9D%E5%AD%98/" title="常用代码保存">常用代码保存</a><time datetime="2026-08-05T16:00:00.000Z" title="发表于 2026-08-06 00:00:00">2026-08-06</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(/img/fengmian/R-C%20(2).webp);"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By trouvaille</span></div><div class="footer_custom_text">I wish you to become your own sun, no need to rely on who's light.<p><a target="_blank" href="https://hexo.io/"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&logo=hexo" title="博客框架为Hexo"></a>&nbsp;<a target="_blank" href="https://butterfly.js.org/"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&logo=bitdefender" title="主题采用butterfly"></a>&nbsp;<a target="_blank" href="https://www.jsdelivr.com/"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/CDN-jsDelivr-orange?style=flat&logo=jsDelivr" title="本站使用JsDelivr为静态资源提供CDN加速"></a> &nbsp;<a target="_blank" href="https://vercel.com/ "><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Hosted-Vervel-brightgreen?style=flat&logo=Vercel" title="本站采用双线部署，默认线路托管于Vercel"></a>&nbsp;<a target="_blank" href="https://vercel.com/ "><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Hosted-Coding-0cedbe?style=flat&logo=Codio" title="本站采用双线部署，联通线路托管于Coding"></a>&nbsp;<a target="_blank" href="https://github.com/"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Source-Github-d021d6?style=flat&logo=GitHub" title="本站项目由Gtihub托管"></a>&nbsp;<a target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Copyright-BY--NC--SA%204.0-d42328?style=flat&logo=Claris" title="本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可"></a></p></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://twikoo-xi-pink.vercel.app/',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://twikoo-xi-pink.vercel.app/',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script async src="/js/title.js"></script><canvas id="universe"></canvas><script defer src="/js/universe.js"></script><script defer src="/js/cursor.js"></script><script defer src="/js/click-heart.js"></script><script defer type="text/javascript" src="https://cdn.jsdelivr.net/npm/sweetalert2@8.19.0/dist/sweetalert2.all.js"></script><script defer data-pjax src="/js/lunar.js"></script><script defer data-pjax src="/js/day.js"></script><style> .aplayer.aplayer-fixed{right:48px!important;bottom:auto!important;top:50%!important;transform:translateY(-42px)!important} .aplayer .aplayer-list{position:fixed!important;bottom:80px!important;right:48px!important;width:320px!important;border-radius:12px!important;box-shadow:0 4px 30px rgba(0,0,0,.3)!important;max-height:300px!important;overflow-y:auto!important} .aplayer .aplayer-notice{display:none!important} </style><div id="corner-player"></div><script> !function(){ if(window.__cpDone)return;window.__cpDone=true; function init(){ var el=document.getElementById('corner-player'); if(!el||el.querySelector('.aplayer'))return; fetch('https://api.injahow.cn/meting/?server=netease&type=playlist&id=9516678957') .then(function(r){return r.json()}) .then(function(data){ if(!data||!data.length)throw 'no data'; new APlayer({ container:el, fixed:true,mini:true, autoplay:false,theme:'#ad7a86', loop:'all',order:'random', preload:'auto',volume:0.7,mutex:true, listFolded:true,listMaxHeight:'240px', audio:data.map(function(s){return{ name:s.name||s.title,artist:s.artist||s.author,url:s.url, cover:s.pic||s.cover,lrc:s.lrc }}) }); }) .catch(function(){setTimeout(init,3000)}); } function wait(){ if(typeof APlayer!=='undefined')init(); else setTimeout(wait,300); } wait(); document.addEventListener('pjax:complete',function(){ var el=document.getElementById('corner-player'); if(el&&!el.querySelector('.aplayer'))setTimeout(init,500); }); }(); </script><script src="/js/autoload.js"></script><style>body:not(.home-page) #waifu{display:none!important}</style><script> function updateL2D(){ var isHP=location.pathname==='/'||location.pathname.indexOf('/index.html')!==-1; document.body.classList.toggle('home-page',isHP); } updateL2D(); document.addEventListener('pjax:complete',updateL2D); </script><script> if(location.pathname==='/'||location.pathname.indexOf('/index.html')!==-1){ var s2=document.createElement('script');s2.async=true; s2.src='https://npm.elemecdn.com/tzy-blog/lib/js/other/sakura.js'; document.body.appendChild(s2); } </script><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/fireworks.min.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script>(() => {
+  const destroyAplayer = () => {
+    if (window.aplayers) {
+      for (let i = 0; i < window.aplayers.length; i++) {
+        if (!window.aplayers[i].options.fixed) {
+          window.aplayers[i].destroy()
+        }
+      }
+    }
+  }
+
+  const runMetingJS = () => {
+    typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+  }
+
+  btf.addGlobalFn('pjaxSend', destroyAplayer, 'destroyAplayer')
+  btf.addGlobalFn('pjaxComplete', loadMeting, 'runMetingJS')
+})()</script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js" defer="defer"></script><script>document.addEventListener('DOMContentLoaded', () => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => {
+      try {
+        fn()
+      } catch (err) {
+        console.debug('Pjax callback failed:', err)
+      }
+    })
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      if (!item.parentNode) return
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || ''
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    const responseURL = e.request && e.request.responseURL
+    if (e.request && e.request.status === 404) {
+      true
+        ? pjax.loadUrl('/404.html')
+        : responseURL && (window.location.href = responseURL)
+    } else if (responseURL) {
+      window.location.href = responseURL
+    }
+  })
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><!-- hexo injector body_end start --><script data-pjax>
+    function butterfly_categories_card_injector_config(){
+      var parent_div_git = document.getElementById('recent-posts');
+      var item_html = '<style>li.categoryBar-list-item{width:32.3%;}.categoryBar-list{max-height: 190px;overflow:auto;}.categoryBar-list::-webkit-scrollbar{width:0!important}@media screen and (max-width: 650px){.categoryBar-list{max-height: 160px;}}</style><div class="recent-post-item" style="height:auto;width:100%;padding:0px;"><div id="categoryBar"><ul class="categoryBar-list"><li class="categoryBar-list-item" style="background:url(/img/fengmian/R-C.webp);"> <a class="categoryBar-list-link" onclick="pjax.loadUrl(&quot;categories/编程工具/&quot;);" href="javascript:void(0);">编程工具</a><span class="categoryBar-list-count">6</span><span class="categoryBar-list-descr">c++</span></li><li class="categoryBar-list-item" style="background:url(/img/fengmian/R-C%20(1).webp);"> <a class="categoryBar-list-link" onclick="pjax.loadUrl(&quot;categories/日语/&quot;);" href="javascript:void(0);">日语</a><span class="categoryBar-list-count">1</span><span class="categoryBar-list-descr">python</span></li><li class="categoryBar-list-item" style="background:url(/img/fengmian/R-C%20(2).webp);"> <a class="categoryBar-list-link" onclick="pjax.loadUrl(&quot;categories/嵌入式/&quot;);" href="javascript:void(0);">嵌入式</a><span class="categoryBar-list-count">10</span><span class="categoryBar-list-descr">随笔</span></li><li class="categoryBar-list-item" style="background:url(/img/fengmian/R-C%20(3).webp);"> <a class="categoryBar-list-link" onclick="pjax.loadUrl(&quot;categories/随笔/&quot;);" href="javascript:void(0);">随笔</a><span class="categoryBar-list-count">1</span><span class="categoryBar-list-descr">个人日记</span></li><li class="categoryBar-list-item" style="background:url(/img/light.webp);"> <a class="categoryBar-list-link" onclick="pjax.loadUrl(&quot;categories/408/&quot;);" href="javascript:void(0);">408</a><span class="categoryBar-list-count">2</span><span class="categoryBar-list-descr">杂谈教程</span></li><li class="categoryBar-list-item" style="background:url(undefined);"> <a class="categoryBar-list-link" onclick="pjax.loadUrl(&quot;categories/操作系统/&quot;);" href="javascript:void(0);">操作系统</a><span class="categoryBar-list-count">2</span><span class="categoryBar-list-descr"></span></li></ul></div></div>';
+      console.log('已挂载butterfly_categories_card')
+      parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+      }
+    if( document.getElementById('recent-posts') && (location.pathname ==='/'|| '/' ==='all')){
+    butterfly_categories_card_injector_config()
+    }
+  </script><script data-pjax>
+  function butterfly_clock_anzhiyu_injector_config(){
+    var parent_div_git = document.getElementsByClassName('sticky_layout')[0];
+    var item_html = '<div class="card-widget card-clock"><div class="card-glass"><div class="card-background"><div class="card-content"><div id="hexo_electric_clock"><img class="entered loading" id="card-clock-loading" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.cbd.int/hexo-butterfly-clock-anzhiyu/lib/loading.gif" style="height: 120px; width: 100%;" data-ll-status="loading"/></div></div></div></div></div>';
+    console.log('已挂载butterfly_clock_anzhiyu')
+    if(parent_div_git) {
+      parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+    }
+  }
+  var elist = 'null'.split(',');
+  var cpage = location.pathname;
+  var epage = '/';
+  var qweather_key = 'b16a1fa0e63c46a4b8f28abfb06ae3fe';
+  var qweather_api_host = 'nj6r6pm8pt.re.qweatherapi.com';
+  var ip_api_key = 'Kq1pRjB3WyDja7rhKcWV9f5QU8';
+  var gaud_map_key = 'e2b04289e870b005374ee030148d64fd&s=rsv3';
+  var baidu_ak_key = 'undefined';
+  var flag = 0;
+  var clock_rectangle = '113.34532,23.15624';
+  var clock_default_rectangle_enable = 'false';
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_clock_anzhiyu_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_clock_anzhiyu_injector_config();
+  }
+  </script><script data-pjax src="https://cdn.cbd.int/hexo-butterfly-clock-anzhiyu/lib/clock.min.js"></script><script async src="//at.alicdn.com/t/font_2032782_8d5kxvn09md.js"></script><!-- hexo injector body_end end --></body></html>
