@@ -758,7 +758,9 @@ body {
    Feature 1 & 3: 程序员老黄历卡片 & 历史上的今天卡片样式
    ======================================================== */
 .card-almanac,
-.card-history {
+.card-history,
+.card-geek-monitor,
+.card-poetry-quote {
   padding: 18px 20px !important;
   border-radius: 14px !important;
   transition: all 0.3s ease !important;
