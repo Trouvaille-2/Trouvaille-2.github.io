@@ -544,7 +544,7 @@ comments:
   # Leave it empty if you don't need comments
   # Choose: Disqus/Disqusjs/Livere/Gitalk/Valine/Waline/Utterances/Facebook Comments/Twikoo/Giscus/Remark42/Artalk
   # Format of two comments system : Disqus,Waline
-  use:
+  use: Giscus
   # Display the comment name next to the button
   text: true
   # Lazyload: The comment system will be load when comment element enters the browser's viewport.
@@ -642,8 +642,8 @@ twikoo:
 # https://giscus.app/
 giscus:
   repo: Trouvaille-2/Trouvaille-2.github.io
-  repo_id: 
-  category_id: 
+  repo_id: R_kgDOOMY6_Q
+  category_id: DIC_kwDOOMY6_c4DIc-r
   category: General
   mapping: pathname
   strict: 0
