@@ -1144,7 +1144,7 @@ CDN:
   # 注意：开发版只能将 “本地 ”用于内部脚本
   # 注意：将第三方脚本设置为 “本地 ”时，需要安装 hexo-butterfly-extjs
   internal_provider: local
-  third_party_provider: cdnjs
+  third_party_provider: jsdelivr
 
   # Add version number to url, true or false
   version: false
