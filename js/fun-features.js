@@ -86,42 +86,11 @@
   }
 
   /* ========================================================
-   * 3. 桌面端卡片 3D 视差倾斜特效 (Feature B)
-   * ======================================================== */
-  function init3DTilt() {
-    if (window.innerWidth < 768) return; // 移动端直接跳过
-
-    const cards = document.querySelectorAll('.card-widget, .recent-post-item');
-    cards.forEach((card) => {
-      if (card.__tiltInitialized) return;
-      card.__tiltInitialized = true;
-
-      card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-
-        const rotateX = ((centerY - y) / centerY) * 7; // 最大倾斜 7 度
-        const rotateY = ((x - centerX) / centerX) * 7;
-
-        card.style.transform = `perspective(800px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) scale3d(1.02, 1.02, 1.02)`;
-      });
-
-      card.addEventListener('mouseleave', () => {
-        card.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
-      });
-    });
-  }
-
-  /* ========================================================
    * 生命周期调度（首屏 + Pjax 路由切换）
    * ======================================================== */
   function initAll() {
     initReadingProgress();
     initWallpaperSwitcher();
-    init3DTilt();
   }
 
   if (document.readyState === 'loading') {
