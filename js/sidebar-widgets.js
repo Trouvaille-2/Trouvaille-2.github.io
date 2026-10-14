@@ -363,7 +363,6 @@
 
     renderGeekMonitor(aside);
     renderAlmanacCard(aside);
-    renderHistoryCard(aside);
     renderPoetryCard(aside);
   }
 
