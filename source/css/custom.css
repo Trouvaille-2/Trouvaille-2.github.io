@@ -668,3 +668,65 @@ body {
   transform: translateY(-2px);
   filter: brightness(1.1);
 }
+
+/* ========================================================
+   方向四：关于页技能标签胶囊与排版美化
+   ======================================================== */
+.skills-tags-wrap {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 10px !important;
+  margin: 1.2rem 0 !important;
+}
+
+.skill-pill {
+  display: inline-flex !important;
+  align-items: center !important;
+  padding: 6px 15px !important;
+  border-radius: 20px !important;
+  font-weight: 500 !important;
+  font-size: 0.88rem !important;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+  cursor: default;
+}
+
+[data-theme="light"] .skill-pill {
+  background: rgba(73, 177, 245, 0.08) !important;
+  color: #2c3e50 !important;
+  border: 1px solid rgba(73, 177, 245, 0.25) !important;
+  box-shadow: 0 2px 8px rgba(73, 177, 245, 0.08) !important;
+}
+
+[data-theme="dark"] .skill-pill {
+  background: rgba(98, 193, 255, 0.12) !important;
+  color: #e0e0e0 !important;
+  border: 1px solid rgba(98, 193, 255, 0.25) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+}
+
+.skill-pill:hover {
+  transform: translateY(-3px) scale(1.04) !important;
+  background: linear-gradient(135deg, #49b1f5, #a29bfe) !important;
+  color: #fff !important;
+  border-color: transparent !important;
+  box-shadow: 0 6px 18px rgba(73, 177, 245, 0.35) !important;
+}
+
+/* ========================================================
+   移动端极致轻量化：屏蔽大屏幕特效，提升手持设备帧率与流畅度
+   ======================================================== */
+@media screen and (max-width: 768px) {
+  #waifu,
+  #universe,
+  #cursor {
+    display: none !important;
+  }
+
+  /* 手机端禁用可能造成滚动手感卡顿的高频文字投影动画 */
+  [data-theme="dark"] #site-name,
+  [data-theme="dark"] #site-title,
+  [data-theme="dark"] #site-subtitle,
+  [data-theme="dark"] #post-info {
+    animation: none !important;
+  }
+}

@@ -1,3 +1,18 @@
+if (typeof Swal === 'undefined') {
+    window.Swal = {
+        fire: function(arg) {
+            var s = document.createElement("script");
+            s.src = "https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/8.19.0/sweetalert2.all.min.js";
+            s.onload = function() {
+                if (window.Swal && typeof window.Swal.fire === 'function') {
+                    window.Swal.fire(arg);
+                }
+            };
+            document.head.appendChild(s);
+        }
+    };
+}
+
 var d = new Date();
 m = d.getMonth() + 1;
 dd = d.getDate();

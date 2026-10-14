@@ -21,9 +21,7 @@ menu:  ##菜单
   归档: /archives/ || fas fa-archive
   标签: /tags/ || fas fa-tags
   分类: /categories/ || fas fa-folder-open
-  列表||fas fa-list || hide:
-    音乐: /music/ || fas player
-    电影: /movies/ || fas fa-video
+  音乐馆: /music/ || fas fa-music
   友链: /link/ || fas fa-link
   关于: /about/ || fas fa-heart
 
@@ -179,7 +177,7 @@ subtitle:
   # 1 - hitokoto.cn
   # 2 - https://api.aa1.cn/doc/yiyan.html
   # 3 - jinrishici.com
-  source: 1
+  source: false
   # 如果关闭打字机效果，字幕将只显示第一行字幕。
   sub:
   - "我知这世界本如朝露般短暂，然而，然而 ——小林一茶"
@@ -546,7 +544,7 @@ comments:
   # Leave it empty if you don't need comments
   # Choose: Disqus/Disqusjs/Livere/Gitalk/Valine/Waline/Utterances/Facebook Comments/Twikoo/Giscus/Remark42/Artalk
   # Format of two comments system : Disqus,Waline
-  use: Twikoo
+  use:
   # Display the comment name next to the button
   text: true
   # Lazyload: The comment system will be load when comment element enters the browser's viewport.
@@ -1064,9 +1062,8 @@ inject:
       - <script defer src="/js/universe.js"></script>
       - <script defer src="/js/cursor.js"></script>
       - <script defer src="/js/click-heart.js"></script>
-      - <script defer type="text/javascript" src="https://cdn.jsdelivr.net/npm/sweetalert2@8.19.0/dist/sweetalert2.all.js"></script> # 节日弹窗依赖
       - <script defer data-pjax src="/js/lunar.js"></script> # 农历计算
-      - <script defer data-pjax src="/js/day.js"></script> # 节日弹窗
+      - <script defer data-pjax src="/js/day.js"></script> # 节日弹窗（按需动态加载弹窗库）
       # 全局固定播放器（右侧中间，Pjax 不受影响）
       - <style>
           .aplayer.aplayer-fixed{right:48px!important;bottom:auto!important;top:50%!important;transform:translateY(-42px)!important}
@@ -1110,8 +1107,14 @@ inject:
             });
           }();
         </script>
-      # Live2D 看板娘（始终加载，但仅首页显示）
-      - <script src="/js/autoload.js"></script>
+      # Live2D 看板娘（仅电脑端首页加载）
+      - <script>
+          if (window.innerWidth >= 768) {
+            var s = document.createElement('script');
+            s.src = '/js/autoload.js';
+            document.body.appendChild(s);
+          }
+        </script>
       - '<style>body:not(.home-page) #waifu{display:none!important}</style>'
       - <script>
           function updateL2D(){
@@ -1121,9 +1124,9 @@ inject:
           updateL2D();
           document.addEventListener('pjax:complete',updateL2D);
         </script>
-      # 樱花效果（仅首页加载）
+      # 樱花效果（仅电脑端首页加载）
       - <script>
-          if(location.pathname==='/'||location.pathname.indexOf('/index.html')!==-1){
+          if((location.pathname==='/'||location.pathname.indexOf('/index.html')!==-1) && window.innerWidth >= 768){
             var s2=document.createElement('script');s2.async=true;
             s2.src='https://npm.elemecdn.com/tzy-blog/lib/js/other/sakura.js';
             document.body.appendChild(s2);
@@ -1141,7 +1144,7 @@ CDN:
   # 注意：开发版只能将 “本地 ”用于内部脚本
   # 注意：将第三方脚本设置为 “本地 ”时，需要安装 hexo-butterfly-extjs
   internal_provider: local
-  third_party_provider: jsdelivr
+  third_party_provider: cdnjs
 
   # Add version number to url, true or false
   version: false
@@ -1211,7 +1214,7 @@ CDN:
 # see https://anzhiy.cn/posts/fc18.html
 electric_clock:
   enable: true # 开关
-  priority: 5 #过滤器优先权
+  priority: 5 # 过滤器优先权
   enable_page: / # 应用页面
   exclude:
     # - /posts/
@@ -1220,14 +1223,14 @@ electric_clock:
     type: class
     name: sticky_layout
     index: 0
-  loading: https://cdn.cbd.int/hexo-butterfly-clock-anzhiyu/lib/loading.gif #加载动画自定义
+  loading: https://cdn.cbd.int/hexo-butterfly-clock-anzhiyu/lib/loading.gif # 加载动画
   clock_css: https://cdn.cbd.int/hexo-butterfly-clock-anzhiyu/lib/clock.min.css
   clock_js: https://cdn.cbd.int/hexo-butterfly-clock-anzhiyu/lib/clock.min.js
-  ip_api: https://widget.qweather.net/simple/static/js/he-simple-common.js?v=2.0
-  qweather_key:  # 和风天气key
-  gaud_map_key:  # 高得地图web服务key
-  default_rectangle: false # 开启后将一直显示rectangle位置的天气，否则将获取访问者的地理位置与天气
-  rectangle: 113.34532,23.15624 # 获取访问者位置失败时会显示该位置的天气，同时该位置为开启default_rectangle后的位置
+  qweather_key: 5fd2418765ba4e918c91826c30f88b7d
+  qweather_api_host: mx6x8b2pby.re.qweatherapi.com
+  gaud_map_key:  # 【高德地图 Web服务 Key】：可选填，未填时按默认坐标或IP获取
+  default_rectangle: false # 开启后将一直显示固定位置天气，否则获取访客实时位置
+  rectangle: 113.34532,23.15624 # 默认经纬度坐标
 
 
   # tag-plugins-plus

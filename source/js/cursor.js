@@ -78,6 +78,8 @@ class Cursor {
 }
 
 (() => {
+    // 移动端和纯触屏设备不运行鼠标特效，节省 CPU 与电量
+    if (window.innerWidth < 768 || ('ontouchstart' in window && !window.matchMedia('(pointer: fine)').matches)) return;
     CURSOR = new Cursor();
     // 需要重新获取列表时，使用 CURSOR.refresh()
 })();
