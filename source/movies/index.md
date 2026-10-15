@@ -17,7 +17,7 @@ top_img: /img/miao5.webp
   <!-- 1. 蓦然回首 -->
   <div class="movie-card">
     <div class="movie-cover-wrap">
-      <img class="movie-cover-img" src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?q=80&w=800&auto=format&fit=crop" alt="蓦然回首" loading="lazy" />
+      <img class="movie-cover-img" src="/img/movies/look_back.jpg" alt="蓦然回首" loading="lazy" />
       <span class="movie-score-badge">🌟 9.3</span>
     </div>
     <div class="movie-info-wrap">
@@ -34,7 +34,7 @@ top_img: /img/miao5.webp
   <!-- 2. 秒速五厘米 -->
   <div class="movie-card">
     <div class="movie-cover-wrap">
-      <img class="movie-cover-img" src="https://images.unsplash.com/photo-1522383225653-ed111181a951?q=80&w=800&auto=format&fit=crop" alt="秒速五厘米" loading="lazy" />
+      <img class="movie-cover-img" src="/img/movies/5cm.jpg" alt="秒速五厘米" loading="lazy" />
       <span class="movie-score-badge">🌟 8.6</span>
     </div>
     <div class="movie-info-wrap">
@@ -51,7 +51,7 @@ top_img: /img/miao5.webp
   <!-- 3. HELLO WORLD -->
   <div class="movie-card">
     <div class="movie-cover-wrap">
-      <img class="movie-cover-img" src="https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=800&auto=format&fit=crop" alt="HELLO WORLD" loading="lazy" />
+      <img class="movie-cover-img" src="/img/movies/hello_world.jpg" alt="HELLO WORLD" loading="lazy" />
       <span class="movie-score-badge">🌟 8.1</span>
     </div>
     <div class="movie-info-wrap">
@@ -68,7 +68,7 @@ top_img: /img/miao5.webp
   <!-- 4. 夏日幻魂 -->
   <div class="movie-card">
     <div class="movie-cover-wrap">
-      <img class="movie-cover-img" src="https://images.unsplash.com/photo-1514565131-fce0801e5785?q=80&w=800&auto=format&fit=crop" alt="夏日幻魂" loading="lazy" />
+      <img class="movie-cover-img" src="/img/movies/summer_ghost.jpg" alt="夏日幻魂" loading="lazy" />
       <span class="movie-score-badge">🌟 8.4</span>
     </div>
     <div class="movie-info-wrap">
@@ -85,7 +85,7 @@ top_img: /img/miao5.webp
   <!-- 5. 横道世之介 -->
   <div class="movie-card">
     <div class="movie-cover-wrap">
-      <img class="movie-cover-img" src="https://images.unsplash.com/photo-1476820865390-c52aeebb9891?q=80&w=800&auto=format&fit=crop" alt="横道世之介" loading="lazy" />
+      <img class="movie-cover-img" src="/img/movies/yonosuke.jpg" alt="横道世之介" loading="lazy" />
       <span class="movie-score-badge">🌟 8.8</span>
     </div>
     <div class="movie-info-wrap">
@@ -102,7 +102,7 @@ top_img: /img/miao5.webp
   <!-- 6. 进击的巨人 -->
   <div class="movie-card">
     <div class="movie-cover-wrap">
-      <img class="movie-cover-img" src="https://images.unsplash.com/photo-1578632767115-351597cf2477?q=80&w=800&auto=format&fit=crop" alt="进击的巨人" loading="lazy" />
+      <img class="movie-cover-img" src="/img/movies/attack_on_titan.jpg" alt="进击的巨人" loading="lazy" />
       <span class="movie-score-badge">🌟 9.8</span>
     </div>
     <div class="movie-info-wrap">
